@@ -111,7 +111,76 @@ jobs:
           }
           EOF
           
-          echo "📝 Mod structure created. Manual download and validation required."
+          echo "📝 Mod structure created."
+      
+      - name: Download mod files
+        if: contains(github.event.comment.body, '/approve-mod')
+        run: |
+          MOD_FOLDER="mods/${{ steps.parse.outputs.folder-name }}"
+          MOD_ZIP_URL="${{ steps.parse.outputs.mod-download-url }}"
+          ICON_URL="${{ steps.parse.outputs.icon-download-url }}"
+          
+          echo "📥 Downloading mod files..."
+          
+          # Download mod ZIP file
+          if [ ! -z "$MOD_ZIP_URL" ] && [ "$MOD_ZIP_URL" != "null" ]; then
+            echo "Downloading mod ZIP from: $MOD_ZIP_URL"
+            
+            # Extract filename from URL or create one
+            ZIP_FILENAME=$(basename "$MOD_ZIP_URL")
+            if [[ "$ZIP_FILENAME" != *.zip ]]; then
+              ZIP_FILENAME="${{ steps.parse.outputs.folder-name }}-v${{ steps.parse.outputs.version }}.zip"
+            fi
+            
+            # Download with wget (fallback to curl)
+            if command -v wget &> /dev/null; then
+              wget -O "$MOD_FOLDER/$ZIP_FILENAME" "$MOD_ZIP_URL" || echo "❌ Failed to download mod ZIP"
+            elif command -v curl &> /dev/null; then
+              curl -L -o "$MOD_FOLDER/$ZIP_FILENAME" "$MOD_ZIP_URL" || echo "❌ Failed to download mod ZIP"
+            else
+              echo "❌ Neither wget nor curl available for download"
+            fi
+            
+            # Verify download
+            if [ -f "$MOD_FOLDER/$ZIP_FILENAME" ]; then
+              FILE_SIZE=$(stat -c%s "$MOD_FOLDER/$ZIP_FILENAME" 2>/dev/null || stat -f%z "$MOD_FOLDER/$ZIP_FILENAME" 2>/dev/null || echo "0")
+              echo "✅ Mod ZIP downloaded successfully ($FILE_SIZE bytes)"
+            else
+              echo "❌ Mod ZIP download failed"
+            fi
+          else
+            echo "⚠️ No mod ZIP URL provided"
+          fi
+          
+          # Download icon file
+          if [ ! -z "$ICON_URL" ] && [ "$ICON_URL" != "null" ]; then
+            echo "Downloading icon from: $ICON_URL"
+            
+            # Extract extension from URL
+            ICON_EXT="${ICON_URL##*.}"
+            case "$ICON_EXT" in
+              png|jpg|jpeg|gif|webp) ICON_FILENAME="icon.$ICON_EXT" ;;
+              *) ICON_FILENAME="icon.png" ;;
+            esac
+            
+            # Download icon
+            if command -v wget &> /dev/null; then
+              wget -O "$MOD_FOLDER/$ICON_FILENAME" "$ICON_URL" || echo "⚠️ Failed to download icon (optional)"
+            elif command -v curl &> /dev/null; then
+              curl -L -o "$MOD_FOLDER/$ICON_FILENAME" "$ICON_URL" || echo "⚠️ Failed to download icon (optional)"
+            fi
+            
+            # Verify icon download
+            if [ -f "$MOD_FOLDER/$ICON_FILENAME" ]; then
+              echo "✅ Icon downloaded successfully"
+            else
+              echo "⚠️ Icon download failed (optional file)"
+            fi
+          else
+            echo "ℹ️ No icon URL provided (optional)"
+          fi
+          
+          echo "📁 Download process completed"
       
       - name: Commit mod structure
         if: contains(github.event.comment.body, '/approve-mod')
@@ -119,9 +188,26 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action Bot"
           git add "mods/${{ steps.parse.outputs.folder-name }}/"
-          git commit -m "✅ Add approved mod structure: ${{ steps.parse.outputs.mod-name }} v${{ steps.parse.outputs.version }} (Issue #${{ steps.parse.outputs.issue-number }})"
+          git commit -m "✅ Add approved mod with files: ${{ steps.parse.outputs.mod-name }} v${{ steps.parse.outputs.version }} (Issue #${{ steps.parse.outputs.issue-number }})"
           git push
           echo "🚀 Mod structure committed and pushed to repository"
+      
+      - name: Update manifest
+        if: contains(github.event.comment.body, '/approve-mod')
+        run: |
+          echo "🔄 Updating manifest with new mod..."
+          python scripts/generate-manifest.py
+          
+          # Check if manifest changed
+          if git diff --quiet manifest.json; then
+            echo "ℹ️ No manifest changes needed"
+          else
+            echo "📝 Manifest updated, committing changes..."
+            git add manifest.json
+            git commit -m "🤖 Auto-update manifest after adding ${{ steps.parse.outputs.mod-name }}"
+            git push
+            echo "✅ Manifest updated and pushed"
+          fi
       
       - name: Add approval comment
         if: contains(github.event.comment.body, '/approve-mod')
@@ -132,22 +218,27 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `✅ **Mod Approved and Structure Created!**
+              body: `✅ **Mod Approved and Fully Processed!**
               
-              **${{ steps.parse.outputs.mod-name }}** has been approved and added to the mod store!
+              **${{ steps.parse.outputs.mod-name }}** has been approved and automatically added to the mod store!
               
               **📁 Mod Location:** \`mods/${{ steps.parse.outputs.folder-name }}/\`
               
+              **📥 Files Downloaded:**
+              - ✅ Mod metadata (mod-info.json)
+              - 📦 Mod ZIP file (automatically downloaded)
+              - 🖼️ Icon file (if provided)
+              
               **Next Steps:**
-              1. 📥 Download and add the mod files:
-                 - **Mod ZIP:** ${{ steps.parse.outputs.mod-download-url }}
-                 - **Icon:** ${{ steps.parse.outputs.icon-download-url }}
-              2. 🔄 Run manifest generation to update the store
-              3. ✅ Mod will be available in mod managers
+              1. 🔄 Manifest will be updated automatically
+              2. ✅ Mod will be available in mod managers within 15 minutes
+              3. 🎉 Users can now download and install your mod!
               
-              The basic mod structure has been created. Please download the actual mod files and add them to complete the process.
+              **Download URLs used:**
+              - **Mod ZIP:** ${{ steps.parse.outputs.mod-download-url }}
+              - **Icon:** ${{ steps.parse.outputs.icon-download-url }}
               
-              Thank you for contributing to the PalSchema community! 🎉`
+              Your mod is now live in the PalSchema Mod Store! Thank you for contributing! 🚀`
             });
       
       - name: Add processing comment
