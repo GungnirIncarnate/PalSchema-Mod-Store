@@ -43,7 +43,6 @@ palworld-mod-store/
   "Description": "A detailed description of what your mod does",
   "Author": "Your Name",
   "Tags": ["gameplay", "enhancement", "ui"],
-  "RequiresPalSchema": true,
   "MinGameVersion": "0.3.0",
   "Homepage": "https://your-mod-homepage.com",
   "SourceCode": "https://github.com/yourname/yourmod"

@@ -27,7 +27,6 @@ Ensure your mod is properly packaged and tested:
   "Description": "A detailed description of what your mod does and how it enhances the game experience.",
   "Author": "Your Name or Username",
   "Tags": ["gameplay", "enhancement", "ui"],
-  "RequiresPalSchema": true,
   "MinGameVersion": "0.3.0",
   "Homepage": "https://your-mod-page.com",
   "SourceCode": "https://github.com/yourname/yourmod"
