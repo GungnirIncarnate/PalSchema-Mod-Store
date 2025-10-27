@@ -1,0 +1,126 @@
+# PalSchema Mod Store - Git Ignore Configuration
+
+# ===========================================
+# Mod Files (Large zip files, icons, etc.)
+# ===========================================
+# Exclude the entire mods directory to avoid syncing large mod files locally
+# The mods folder will still exist on GitHub (added by automated workflows)
+# but won't be downloaded to local development machines
+mods/
+
+# However, keep the ExampleMod for reference and testing
+!mods/ExampleMod/
+!mods/ExampleMod/**
+
+# ===========================================
+# Python
+# ===========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ===========================================
+# IDEs and Editors
+# ===========================================
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains IDEs
+.idea/
+*.swp
+*.swo
+*~
+
+# ===========================================
+# Operating System
+# ===========================================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Linux
+*~
+
+# ===========================================
+# Temporary and Log Files
+# ===========================================
+*.log
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+
+# ===========================================
+# GitHub Actions and CI
+# ===========================================
+# Keep workflows but ignore any temporary files
+.github/workflows/.tmp
+
+# ===========================================
+# Development Files
+# ===========================================
+# Local configuration files
+*.local
+.env.local
+config.local.*
+
+# Test files
+test_downloads/
+temp_mods/
+
+# Backup files
+*.backup
+*.bak
+
+# ===========================================
+# Note for Developers
+# ===========================================
+# The mods/ directory is excluded by default to prevent downloading
+# hundreds of mod files to local development machines.
+# 
+# If you need to work with specific mods locally:
+# 1. Create a local test folder: mkdir temp_mods
+# 2. Download specific mods you need to test
+# 3. The automated workflows will still manage the real mods/ folder on GitHub
+#
+# To temporarily include mods folder: git add mods/ --force

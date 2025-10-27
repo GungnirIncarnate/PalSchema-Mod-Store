@@ -394,7 +394,7 @@ jobs:
             });
       
       - name: Add processing comment
-        if: github.event_name == 'issues' && (github.event.action == 'labeled' || github.event.action == 'opened')
+        if: github.event_name == 'issues' && github.event.action == 'opened'
         uses: actions/github-script@v7
         with:
           script: |

@@ -26,6 +26,26 @@ palworld-mod-store/
 └── README.md              # This file
 ```
 
+## 🏠 Local Development Setup
+
+This repository is optimized for both automated mod distribution and local development:
+
+### Git Ignore Configuration
+The repository uses a smart `.gitignore` setup that:
+- **Excludes** the `mods/` directory from local sync to avoid downloading hundreds of mod files
+- **Preserves** `mods/ExampleMod/` as a reference for proper mod structure
+- **Maintains** all GitHub automation functionality for manifest generation and validation
+
+### For Contributors
+When you clone this repository locally, you won't download all the mod files, making the repository lightweight. The automation still works perfectly on GitHub, processing mods and updating the manifest automatically.
+
+If you need to work with specific mods locally:
+1. Remove the mod from `.gitignore` temporarily
+2. Pull the specific mod files you need
+3. Add the mod back to `.gitignore` when done
+
+This approach keeps local development fast while maintaining full functionality for users accessing mods through the manifest API.
+
 ## 📦 Adding a New Mod
 
 1. Create a new directory in `mods/` with your mod name
