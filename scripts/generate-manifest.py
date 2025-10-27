@@ -132,7 +132,6 @@ def generate_manifest():
             "download_url": f"{raw_url}/mods/{mod_dir.name}/{mod_zip.name}",
             "file_size": get_file_size(mod_zip),
             "checksum": f"sha256:{calculate_file_hash(mod_zip)}",
-            "requires_palschema": mod_info.get("RequiresPalSchema", True),
             "min_game_version": mod_info.get("MinGameVersion", "0.1.0"),
             "tags": mod_info.get("Tags", []),
             "last_updated": datetime.fromtimestamp(mod_zip.stat().st_mtime).isoformat() + "Z"
