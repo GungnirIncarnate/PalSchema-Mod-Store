@@ -1,29 +1,30 @@
 {
   "version": "1.0",
-  "last_updated": "2025-10-27T12:40:22.491744Z",
+  "last_updated": "2025-10-27T12:46:10.917844Z",
   "repository": {
-    "url": "https://github.com/GungnirIncarnate/palworld-mod-store",
-    "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/palworld-mod-store/main"
+    "url": "https://github.com/USERNAME/palworld-mod-store",
+    "raw_url": "https://raw.githubusercontent.com/USERNAME/palworld-mod-store/main"
   },
   "mods": [
     {
       "id": "enhancedpalstats",
       "name": "Enhanced Pal Stats",
-      "version": "2.1.0",
-      "description": "Displays detailed statistics for your Pals including hidden stats and combat effectiveness.",
+      "version": "2.2.0",
+      "description": "Displays detailed statistics for your Pals including hidden stats, combat effectiveness, and NEW breeding compatibility matrix. Now includes performance optimization and customizable hotkeys.",
       "author": "PalMaster47",
       "folder_name": "EnhancedPalStats",
-      "download_url": "https://raw.githubusercontent.com/GungnirIncarnate/palworld-mod-store/main/mods/EnhancedPalStats/EnhancedPalStats-v2.1.0.zip",
-      "file_size": 1312,
-      "checksum": "sha256:0c845e02ef6f894d1daa393aa3ed1eaa336d46e8961123df229c38086fcb2c37",
+      "download_url": "https://raw.githubusercontent.com/GungnirIncarnate/palworld-mod-store/main/mods/EnhancedPalStats/EnhancedPalStats-v2.2.0.zip",
+      "file_size": 2039,
+      "checksum": "sha256:833022b11f5a6919ee073f11b6dd331332d9bea0f5942c6bc217ef1231159a94",
       "requires_palschema": true,
       "min_game_version": "0.3.0",
       "tags": [
         "ui",
         "enhancement",
-        "statistics"
+        "statistics",
+        "breeding"
       ],
-      "last_updated": "2025-10-27T23:35:17.027472Z",
+      "last_updated": "2025-10-27T23:45:45.394114Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/palworld-mod-store/main/mods/EnhancedPalStats/icon.png"
     },
     {
@@ -33,7 +34,7 @@
       "description": "A demonstration mod that showcases the proper structure.",
       "author": "ModStore Team",
       "folder_name": "ExampleMod",
-      "download_url": "https://raw.githubusercontent.com/GungnirIncarnate/palworld-mod-store/main/mods/ExampleMod/ExampleMod-v1.0.0.zip",
+      "download_url": "https://raw.githubusercontent.com/USERNAME/palworld-mod-store/main/mods/ExampleMod/ExampleMod-v1.0.0.zip",
       "file_size": 113,
       "checksum": "sha256:72d0c4a7f1a9e831b777c936303e6c3875fb238356670aded8101354fae5b84b",
       "requires_palschema": true,
@@ -42,7 +43,7 @@
         "quality-of-life",
         "example"
       ],
-      "last_updated": "2025-10-27T23:38:26.083470Z"
+      "last_updated": "2025-10-27T23:41:56.244980Z"
     }
   ]
 }

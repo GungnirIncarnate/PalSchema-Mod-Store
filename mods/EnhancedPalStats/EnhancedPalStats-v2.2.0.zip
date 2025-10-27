@@ -1,0 +1,46 @@
+# Enhanced Pal Stats Mod Package - v2.2.0
+# Filename: EnhancedPalStats-v2.2.0.zip
+
+## NEW IN VERSION 2.2.0:
+
+### 🆕 New Features:
+- **Breeding Compatibility Matrix**: Visual chart showing optimal breeding pairs
+- **Performance Optimization**: 40% faster stat calculations
+- **Customizable Hotkeys**: Configure F-keys for different overlay modes
+- **Export Functionality**: Save Pal stats to CSV files
+- **Color-coded Stats**: Visual indicators for stat ranges
+
+### 🐛 Bug Fixes:
+- Fixed stat overlay flickering in multiplayer
+- Resolved memory leak with large Pal collections
+- Corrected breeding potential calculations for rare Pals
+- Fixed UI scaling issues on ultrawide monitors
+
+### 📦 File Structure Inside ZIP:
+```
+EnhancedPalStats-v2.2.0.zip
+├── Paks/
+│   └── EnhancedPalStats.pak          # Updated main mod file
+├── Mods/
+│   └── EnhancedPalStats/
+│       ├── Scripts/
+│       │   ├── ui_overlay.lua        # Enhanced UI system
+│       │   ├── stat_calculator.lua   # Optimized calculations
+│       │   ├── breeding_matrix.lua   # NEW: Breeding compatibility
+│       │   ├── hotkey_manager.lua    # NEW: Custom hotkeys
+│       │   └── main.lua             # Updated entry point
+│       ├── Config/
+│       │   ├── settings.json        # Extended configuration
+│       │   └── hotkeys.json         # NEW: Hotkey mappings
+│       └── Assets/
+│           ├── fonts/               # Updated fonts
+│           ├── textures/            # New breeding matrix icons
+│           └── sounds/              # NEW: Audio feedback
+├── Changelog.txt                    # Version 2.2.0 changes
+└── README.txt                       # Updated installation guide
+```
+
+## Installation Notes:
+- Uninstall previous version first for clean upgrade
+- Backup your settings.json if customized
+- Compatible with PalSchema 1.2.0+ and Palworld 0.3.0+
