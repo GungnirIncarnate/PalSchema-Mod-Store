@@ -1,0 +1,155 @@
+name: Process Mod Submission
+
+on:
+  issues:
+    types: [labeled]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  process-submission:
+    if: (github.event_name == 'issues' && contains(github.event.label.name, 'mod-submission')) || (github.event_name == 'issue_comment' && contains(github.event.issue.labels.*.name, 'mod-submission'))
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      
+      - name: Parse mod submission
+        id: parse
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body;
+            
+            // Parse the issue body to extract mod information
+            const parseField = (fieldName) => {
+              const regex = new RegExp(`### ${fieldName}\\s*([\\s\\S]*?)(?=###|$)`);
+              const match = body.match(regex);
+              return match ? match[1].trim() : '';
+            };
+            
+            const modInfo = {
+              name: parseField('Mod Name') || parseField('ModName'),
+              version: parseField('Version'),
+              description: parseField('Description'),
+              author: parseField('Author'),
+              tags: parseField('Tags'),
+              minGameVersion: parseField('Minimum Game Version'),
+              homepage: parseField('Homepage'),
+              sourceCode: parseField('Source Code'),
+              downloadLinks: parseField('Download Links'),
+              installation: parseField('Installation Instructions')
+            };
+            
+            // Create folder name from mod name
+            const folderName = modInfo.name.replace(/[^a-zA-Z0-9]/g, '');
+            
+            core.setOutput('mod-name', modInfo.name);
+            core.setOutput('folder-name', folderName);
+            core.setOutput('version', modInfo.version);
+            core.setOutput('description', modInfo.description);
+            core.setOutput('author', modInfo.author);
+            core.setOutput('issue-number', issue.number);
+            
+            return modInfo;
+      
+      - name: Create mod structure (manual approval)
+        if: contains(github.event.comment.body, '/approve-mod')
+        run: |
+          # This would be triggered by a maintainer comment "/approve-mod"
+          echo "🔧 Creating mod structure for: ${{ steps.parse.outputs.mod-name }}"
+          
+          # Create mod directory
+          mkdir -p "mods/${{ steps.parse.outputs.folder-name }}"
+          
+          # Create mod-info.json
+          cat > "mods/${{ steps.parse.outputs.folder-name }}/mod-info.json" << 'EOF'
+          {
+            "ModName": "${{ steps.parse.outputs.mod-name }}",
+            "Version": "${{ steps.parse.outputs.version }}",
+            "Description": "${{ steps.parse.outputs.description }}",
+            "Author": "${{ steps.parse.outputs.author }}",
+            "Tags": ["pending"],
+            "MinGameVersion": "0.3.0"
+          }
+          EOF
+          
+          echo "📝 Mod structure created. Manual download and validation required."
+      
+      - name: Add processing comment
+        if: github.event_name == 'issues' && github.event.action == 'labeled'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🎮 **Mod Submission Received!**
+              
+              Thank you for submitting **${{ steps.parse.outputs.mod-name }}** to the PalSchema Mod Store!
+              
+              **Next Steps:**
+              1. 🔍 Our team will review your submission
+              2. 🧪 We'll test the mod for compatibility and safety
+              3. ✅ If approved, your mod will be added to the store
+              
+              **For Maintainers:**
+              - Review the mod details above
+              - Download and test the mod files
+              - Comment \`/approve-mod\` to process this submission
+              - Comment \`/reject-mod [reason]\` to reject with explanation
+              
+              **Estimated Review Time:** 2-5 business days
+              
+              We'll keep you updated on the status! 🚀`
+            });
+      
+      - name: Handle rejection
+        if: contains(github.event.comment.body, '/reject-mod')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = context.payload.comment.body;
+            const reason = comment.replace('/reject-mod', '').trim();
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ **Mod Submission Rejected**
+              
+              Unfortunately, we cannot accept **${{ steps.parse.outputs.mod-name }}** at this time.
+              
+              **Reason:** ${reason || 'No reason provided'}
+              
+              **What you can do:**
+              - Address the issues mentioned above
+              - Submit a new mod submission with the fixes
+              - Join our Discord for help and discussion
+              
+              Thank you for your contribution! 🙏`
+            });
+            
+            // Close the issue
+            github.rest.issues.update({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'closed',
+              labels: ['mod-submission', 'rejected']
+            });

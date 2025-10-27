@@ -1,126 +1,236 @@
-# Contributing to Palworld Mod Store
+# 🎮 Contributing Mods to PalSchema Mod Store# 🎮 Contributing Mods to PalSchema Mod Store
 
-Thank you for your interest in contributing to the Palworld Mod Store! This guide will help you submit mods and contribute to the repository.
 
-## 📦 Submitting a New Mod
 
-### 1. Prepare Your Mod
+There are several ways to contribute your mod to the PalSchema Mod Store, depending on your technical comfort level:There are several ways to contribute your mod to the PalSchema Mod Store, depending on your technical comfort level:
 
-Ensure your mod is properly packaged and tested:
-- Create a zip file containing all mod files
-- Test the mod in-game to ensure it works
-- Prepare a 64x64 pixel icon (PNG format recommended)
 
-### 2. Create Mod Directory
 
-1. Fork this repository
-2. Create a new directory in `mods/` with your mod name (e.g., `mods/YourModName/`)
-3. Use a descriptive name without spaces (use PascalCase or kebab-case)
+## 🚀 **Method 1: Issue Submission (Recommended for most users)**## � **Method 1: Issue Submission (Recommended for most users)**
 
-### 3. Add Required Files
 
-#### mod-info.json (Required)
+
+**Perfect for:** Non-technical users, quick submissions**Perfect for:** Non-technical users, quick submissions
+
+
+
+1. **Go to**: [Submit New Mod](../../issues/new?assignees=GungnirIncarnate&labels=mod-submission%2Cpending-review&template=mod-submission.yml&title=%5BMOD+SUBMISSION%5D+)1. **Go to**: [Submit New Mod](../../issues/new?assignees=GungnirIncarnate&labels=mod-submission%2Cpending-review&template=mod-submission.yml&title=%5BMOD+SUBMISSION%5D+)
+
+2. **Fill out the form** with your mod details2. **Fill out the form** with your mod details
+
+3. **Upload your files** to a file hosting service (GitHub releases, Google Drive, etc.)3. **Upload your files** to a file hosting service (GitHub releases, Google Drive, etc.)
+
+4. **Submit the issue** - our team will handle the rest!4. **Submit the issue** - our team will handle the rest!
+
+
+
+**⏱️ Processing Time:** 2-5 business days**⏱️ Processing Time:** 2-5 business days
+
+
+
+---#### mod-info.json (Required)
+
 ```json
-{
-  "ModName": "Your Mod Display Name",
-  "Version": "1.0.0",
-  "Description": "A detailed description of what your mod does and how it enhances the game experience.",
-  "Author": "Your Name or Username",
-  "Tags": ["gameplay", "enhancement", "ui"],
-  "MinGameVersion": "0.3.0",
-  "Homepage": "https://your-mod-page.com",
-  "SourceCode": "https://github.com/yourname/yourmod"
-}
-```
 
-#### Mod Zip File (Required)
-- Name format: `YourModName-vX.Y.Z.zip`
+## 🔧 **Method 2: Pull Request (For developers)**{
+
+  "ModName": "Your Mod Display Name",
+
+**Perfect for:** Developers comfortable with Git  "Version": "1.0.0",
+
+  "Description": "A detailed description of what your mod does and how it enhances the game experience.",
+
+1. **Fork** this repository  "Author": "Your Name or Username",
+
+2. **Create** a new folder in `mods/YourModName/`  "Tags": ["gameplay", "enhancement", "ui"],
+
+3. **Add** your files:  "MinGameVersion": "0.3.0",
+
+   ```  "Homepage": "https://your-mod-page.com",
+
+   mods/YourModName/  "SourceCode": "https://github.com/yourname/yourmod"
+
+   ├── mod-info.json     # Mod metadata}
+
+   ├── YourModName-v1.0.0.zip  # Your mod files```
+
+   └── icon.png          # Mod icon (optional)
+
+   ```#### Mod Zip File (Required)
+
+4. **Create** a pull request- Name format: `YourModName-vX.Y.Z.zip`
+
 - Contains all mod files (`.json`, `.jsonc`, `.pak`, configs, etc.)
 
-#### Icon File (Recommended)
-- Filename: `icon.png`, `icon.jpg`, or `icon.jpeg`
-- Size: 256x256 pixels recommended
-- Clear, recognizable representation of your mod
+### mod-info.json Format:
 
-### 4. Field Descriptions
+```json#### Icon File (Recommended)
 
-| Field | Required | Type | Description |
-|-------|----------|------|-------------|
-| `ModName` | ✅ | String | Display name shown in mod managers |
-| `Version` | ✅ | String | Semantic version (X.Y.Z format) |
-| `Description` | ✅ | String | Detailed mod description (max 500 chars) |
+{- Filename: `icon.png`, `icon.jpg`, or `icon.jpeg`
+
+  "ModName": "Your Mod Name",- Size: 256x256 pixels recommended
+
+  "Version": "1.0.0",- Clear, recognizable representation of your mod
+
+  "Description": "What your mod does...",
+
+  "Author": "YourUsername",### 4. Field Descriptions
+
+  "Tags": ["ui", "enhancement"],
+
+  "MinGameVersion": "0.3.0",| Field | Required | Type | Description |
+
+  "Homepage": "https://your-mod-page.com",|-------|----------|------|-------------|
+
+  "SourceCode": "https://github.com/you/your-mod"| `ModName` | ✅ | String | Display name shown in mod managers |
+
+}| `Version` | ✅ | String | Semantic version (X.Y.Z format) |
+
+```| `Description` | ✅ | String | Detailed mod description (max 500 chars) |
+
 | `Author` | ⭕ | String | Creator name or username |
-| `Tags` | ⭕ | Array | Categorization tags |
+
+---| `Tags` | ⭕ | Array | Categorization tags |
+
 | `MinGameVersion` | ⭕ | String | Minimum Palworld version |
-| `Homepage` | ⭕ | String | Mod's main page URL |
+
+## 📧 **Method 3: Direct Contact**| `Homepage` | ⭕ | String | Mod's main page URL |
+
 | `SourceCode` | ⭕ | String | Source code repository URL |
+
+**Perfect for:** Special cases, large mods, partnerships
 
 ### 5. Quality Guidelines
 
-#### Mod Quality
-- ✅ Thoroughly tested in-game
+- **Discord**: Join our community server
+
+- **Email**: Contact the maintainers#### Mod Quality
+
+- **GitHub Discussions**: Start a conversation- ✅ Thoroughly tested in-game
+
 - ✅ No game-breaking bugs
-- ✅ Clear installation instructions
+
+---- ✅ Clear installation instructions
+
 - ✅ Compatible with latest Palworld version
 
+## 📋 **Mod Requirements**
+
 #### Content Standards
-- ✅ Original work or properly credited
-- ✅ No malicious code or suspicious files
-- ✅ Family-friendly content
-- ✅ Respects game's EULA
 
-#### Documentation
+✅ **Must Have:**- ✅ Original work or properly credited
+
+- Compatible with PalSchema- ✅ No malicious code or suspicious files
+
+- Working mod files (tested)- ✅ Family-friendly content
+
+- Clear description- ✅ Respects game's EULA
+
+- Version information
+
+- Safe code (no malware)#### Documentation
+
 - ✅ Clear, descriptive mod name
-- ✅ Detailed description of functionality
-- ✅ Proper categorization with tags
-- ✅ Version follows semantic versioning
 
-### 6. Common Tags
+✅ **Should Have:**- ✅ Detailed description of functionality
 
-Use these standardized tags to help users find your mod:
+- Mod icon (128x128 PNG recommended)- ✅ Proper categorization with tags
 
-**Gameplay:**
-- `gameplay` - Core game mechanics changes
-- `balance` - Game balance adjustments
+- Installation instructions- ✅ Version follows semantic versioning
+
+- Source code link (if applicable)
+
+- Homepage or documentation### 6. Common Tags
+
+
+
+❌ **Not Allowed:**Use these standardized tags to help users find your mod:
+
+- Malicious code
+
+- Copyrighted content**Gameplay:**
+
+- NSFW content- `gameplay` - Core game mechanics changes
+
+- Mods that break game ToS- `balance` - Game balance adjustments
+
 - `difficulty` - Difficulty modifications
-- `progression` - Progression system changes
 
-**Content:**
+---- `progression` - Progression system changes
+
+
+
+## 🔄 **Update Process****Content:**
+
 - `pals` - New or modified Pals
-- `items` - New items or equipment
-- `buildings` - New structures or building options
-- `world` - World generation or environment changes
+
+### For Issue Submissions:- `items` - New items or equipment
+
+1. Create a new issue with "[MOD UPDATE]" prefix- `buildings` - New structures or building options
+
+2. Reference your original mod- `world` - World generation or environment changes
+
+3. Provide new version information
 
 **Interface:**
-- `ui` - User interface improvements
-- `hud` - HUD modifications
-- `menu` - Menu system changes
+
+### For Pull Requests:- `ui` - User interface improvements
+
+1. Update your mod-info.json version- `hud` - HUD modifications
+
+2. Add new zip file with version number- `menu` - Menu system changes
+
+3. Submit pull request
 
 **Quality of Life:**
-- `quality-of-life` - General QoL improvements
+
+---- `quality-of-life` - General QoL improvements
+
 - `automation` - Automation features
-- `convenience` - Convenience features
+
+## 🤝 **Getting Help**- `convenience` - Convenience features
+
 - `optimization` - Performance improvements
 
-### 7. Submission Process
+**Questions?** 
 
-1. **Create Pull Request**
+- 💬 Join our Discord community### 7. Submission Process
+
+- 📖 Check existing GitHub issues
+
+- 🔍 Read the PalSchema documentation1. **Create Pull Request**
+
    - Fork the repository
-   - Add your mod files
-   - Create a descriptive PR title: "Add [ModName] v[Version]"
-   - Include mod description and changelog in PR description
+
+**Problems with submission?**   - Add your mod files
+
+- Comment on your issue for updates   - Create a descriptive PR title: "Add [ModName] v[Version]"
+
+- Check validation logs in GitHub Actions   - Include mod description and changelog in PR description
+
+- Contact maintainers directly
 
 2. **Automated Validation**
-   - GitHub Actions will automatically validate your mod
+
+---   - GitHub Actions will automatically validate your mod
+
    - Check for proper file structure and metadata
-   - Ensure no errors in mod-info.json
 
-3. **Review Process**
-   - Maintainers will review your mod for quality and safety
-   - May request changes or improvements
-   - Once approved, mod will be merged and added to manifest
+## 📊 **Mod Store Stats**   - Ensure no errors in mod-info.json
 
-4. **Post-Merge**
+
+
+Want to see how your mod is performing?3. **Review Process**
+
+- **Downloads**: Check GitHub releases analytics   - Maintainers will review your mod for quality and safety
+
+- **Usage**: Community feedback and ratings   - May request changes or improvements
+
+- **Updates**: Automated manifest tracking   - Once approved, mod will be merged and added to manifest
+
+
+
+Thank you for contributing to the PalSchema community! 🎉4. **Post-Merge**
    - Manifest.json is automatically updated
    - Your mod becomes available in mod managers
    - Download URLs and metadata are generated
