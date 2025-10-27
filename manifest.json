@@ -1,32 +1,11 @@
 {
   "version": "1.0",
-  "last_updated": "2025-10-27T12:57:11.007836Z",
+  "last_updated": "2025-10-27T13:03:51.713698Z",
   "repository": {
     "url": "https://github.com/GungnirIncarnate/PalSchema-Mod-Store",
     "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main"
   },
   "mods": [
-    {
-      "id": "enhancedpalstats",
-      "name": "Enhanced Pal Stats",
-      "version": "2.2.0",
-      "description": "Displays detailed statistics for your Pals including hidden stats, combat effectiveness, and NEW breeding compatibility matrix. Now includes performance optimization and customizable hotkeys.",
-      "author": "PalMaster47",
-      "folder_name": "EnhancedPalStats",
-      "download_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/EnhancedPalStats/EnhancedPalStats-v2.2.0.zip",
-      "file_size": 2039,
-      "checksum": "sha256:833022b11f5a6919ee073f11b6dd331332d9bea0f5942c6bc217ef1231159a94",
-      "requires_palschema": true,
-      "min_game_version": "0.3.0",
-      "tags": [
-        "ui",
-        "enhancement",
-        "statistics",
-        "breeding"
-      ],
-      "last_updated": "2025-10-27T23:46:45.221509Z",
-      "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/EnhancedPalStats/icon.png"
-    },
     {
       "id": "examplemod",
       "name": "Example Quality of Life Mod",
