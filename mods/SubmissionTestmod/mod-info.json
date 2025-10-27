@@ -1,8 +1,0 @@
-{
-  "ModName": "Submission Test mod",
-  "Version": "0.1.0",
-  "Description": "Submission Test Mod Description Here",
-  "Author": "ModManager Team",
-  "Tags": ["pending"],
-  "MinGameVersion": "0.3.0"
-}
