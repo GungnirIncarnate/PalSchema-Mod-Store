@@ -1,0 +1,11 @@
+{
+  "ModName": "Example Quality of Life Mod",
+  "Version": "1.0.0",
+  "Description": "A demonstration mod that showcases the proper structure and metadata format.",
+  "Author": "ModStore Team",
+  "Tags": ["quality-of-life", "gameplay", "example"],
+  "RequiresPalSchema": true,
+  "MinGameVersion": "0.3.0",
+  "Homepage": "https://github.com/GungnirIncarnate/palworld-mod-store",
+  "SourceCode": "https://github.com/GungnirIncarnate/palworld-mod-store"
+}

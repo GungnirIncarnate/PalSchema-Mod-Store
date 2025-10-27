@@ -1,27 +1,9 @@
 {
   "version": "1.0",
-  "last_updated": "2025-10-27T12:00:00Z",
+  "last_updated": "2025-10-27T12:30:39.293819Z",
   "repository": {
     "url": "https://github.com/USERNAME/palworld-mod-store",
     "raw_url": "https://raw.githubusercontent.com/USERNAME/palworld-mod-store/main"
   },
-  "mods": [
-    {
-      "id": "examplemod",
-      "name": "Example Quality of Life Mod",
-      "version": "1.0.0",
-      "description": "A demonstration mod that showcases the proper structure and metadata format for the Palworld Mod Store. This mod improves various quality of life aspects in Palworld.",
-      "author": "ModStore Team",
-      "folder_name": "ExampleMod",
-      "download_url": "https://raw.githubusercontent.com/USERNAME/palworld-mod-store/main/mods/ExampleMod/ExampleMod-v1.0.0.zip",
-      "file_size": 0,
-      "checksum": "sha256:placeholder",
-      "requires_palschema": true,
-      "min_game_version": "0.3.0",
-      "tags": ["quality-of-life", "gameplay", "example"],
-      "homepage": "https://github.com/username/palworld-mod-store",
-      "source_code": "https://github.com/username/example-mod",
-      "last_updated": "2025-10-27T12:00:00Z"
-    }
-  ]
+  "mods": []
 }

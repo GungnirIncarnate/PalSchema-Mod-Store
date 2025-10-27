@@ -60,7 +60,7 @@ palworld-mod-store/
 
 The `manifest.json` file contains all available mods and can be queried at:
 ```
-https://raw.githubusercontent.com/USERNAME/palworld-mod-store/main/manifest.json
+https://raw.githubusercontent.com/GungnirIncarnate/palworld-mod-store/main/manifest.json
 ```
 
 Each mod entry includes:
