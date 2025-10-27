@@ -1,0 +1,14 @@
+# Mod Icon Placeholder
+
+In a real submission, this would be an actual PNG image file named `icon.png` (64x64 pixels recommended).
+
+The icon should:
+- Be 64x64 pixels for best display
+- Represent the mod's functionality visually
+- Be in PNG, JPG, or JPEG format
+- Have a clear, recognizable design
+
+For "Enhanced Pal Stats", the icon might show:
+- A Pal silhouette with stat bars
+- A chart or graph symbol
+- Statistics/analytics themed imagery
