@@ -122,29 +122,84 @@ jobs:
           
           echo "📥 Downloading mod files..."
           
+          # Function to convert Google Drive URLs to direct download
+          convert_gdrive_url() {
+            local url="$1"
+            
+            # Check if it's a Google Drive URL
+            if [[ "$url" == *"drive.google.com"* ]]; then
+              echo "🔄 Converting Google Drive URL to direct download..."
+              
+              # Extract file ID from various Google Drive URL formats
+              FILE_ID=""
+              if [[ "$url" == *"/file/d/"* ]]; then
+                # Format: https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+                FILE_ID=$(echo "$url" | sed -n 's/.*\/file\/d\/\([^\/]*\).*/\1/p')
+              elif [[ "$url" == *"id="* ]]; then
+                # Format: https://drive.google.com/open?id=FILE_ID
+                FILE_ID=$(echo "$url" | sed -n 's/.*id=\([^&]*\).*/\1/p')
+              fi
+              
+              if [ ! -z "$FILE_ID" ]; then
+                echo "📁 Google Drive File ID: $FILE_ID"
+                echo "https://drive.google.com/uc?export=download&id=$FILE_ID"
+              else
+                echo "⚠️ Could not extract Google Drive file ID, using original URL"
+                echo "$url"
+              fi
+            else
+              echo "$url"
+            fi
+          }
+          
           # Download mod ZIP file
           if [ ! -z "$MOD_ZIP_URL" ] && [ "$MOD_ZIP_URL" != "null" ]; then
             echo "Downloading mod ZIP from: $MOD_ZIP_URL"
             
+            # Convert Google Drive URL if needed
+            DOWNLOAD_URL=$(convert_gdrive_url "$MOD_ZIP_URL")
+            echo "Using download URL: $DOWNLOAD_URL"
+            
             # Extract filename from URL or create one
             ZIP_FILENAME=$(basename "$MOD_ZIP_URL")
-            if [[ "$ZIP_FILENAME" != *.zip ]]; then
+            if [[ "$ZIP_FILENAME" != *.zip ]] || [[ "$ZIP_FILENAME" == *"?"* ]]; then
               ZIP_FILENAME="${{ steps.parse.outputs.folder-name }}-v${{ steps.parse.outputs.version }}.zip"
             fi
             
-            # Download with wget (fallback to curl)
+            echo "Saving as: $ZIP_FILENAME"
+            
+            # Download with enhanced options for Google Drive
+            DOWNLOAD_SUCCESS=false
             if command -v wget &> /dev/null; then
-              wget -O "$MOD_FOLDER/$ZIP_FILENAME" "$MOD_ZIP_URL" || echo "❌ Failed to download mod ZIP"
+              echo "Using wget for download..."
+              wget --no-check-certificate --load-cookies /tmp/cookies.txt \
+                   "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id='$(echo "$DOWNLOAD_URL" | sed -n 's/.*id=\([^&]*\).*/\1/p') -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$(echo "$DOWNLOAD_URL" | sed -n 's/.*id=\([^&]*\).*/\1/p')" \
+                   -O "$MOD_FOLDER/$ZIP_FILENAME" 2>/dev/null && DOWNLOAD_SUCCESS=true
+              
+              # Fallback to simple wget if the complex method fails
+              if [ "$DOWNLOAD_SUCCESS" = false ]; then
+                echo "Fallback to simple wget..."
+                wget -O "$MOD_FOLDER/$ZIP_FILENAME" "$DOWNLOAD_URL" 2>/dev/null && DOWNLOAD_SUCCESS=true
+              fi
             elif command -v curl &> /dev/null; then
-              curl -L -o "$MOD_FOLDER/$ZIP_FILENAME" "$MOD_ZIP_URL" || echo "❌ Failed to download mod ZIP"
+              echo "Using curl for download..."
+              curl -L -o "$MOD_FOLDER/$ZIP_FILENAME" "$DOWNLOAD_URL" 2>/dev/null && DOWNLOAD_SUCCESS=true
             else
               echo "❌ Neither wget nor curl available for download"
             fi
             
             # Verify download
-            if [ -f "$MOD_FOLDER/$ZIP_FILENAME" ]; then
+            if [ -f "$MOD_FOLDER/$ZIP_FILENAME" ] && [ "$DOWNLOAD_SUCCESS" = true ]; then
               FILE_SIZE=$(stat -c%s "$MOD_FOLDER/$ZIP_FILENAME" 2>/dev/null || stat -f%z "$MOD_FOLDER/$ZIP_FILENAME" 2>/dev/null || echo "0")
-              echo "✅ Mod ZIP downloaded successfully ($FILE_SIZE bytes)"
+              
+              # Check if we downloaded a virus warning page instead of actual file
+              if [ "$FILE_SIZE" -lt 10000 ] && grep -q "virus" "$MOD_FOLDER/$ZIP_FILENAME" 2>/dev/null; then
+                echo "⚠️ Downloaded virus warning page instead of file. File may be too large for automatic download."
+                echo "📝 Please use a direct download link or upload to GitHub releases instead of Google Drive."
+                rm -f "$MOD_FOLDER/$ZIP_FILENAME"
+              else
+                echo "✅ Mod ZIP downloaded successfully ($FILE_SIZE bytes)"
+              fi
             else
               echo "❌ Mod ZIP download failed"
             fi
@@ -156,6 +211,9 @@ jobs:
           if [ ! -z "$ICON_URL" ] && [ "$ICON_URL" != "null" ]; then
             echo "Downloading icon from: $ICON_URL"
             
+            # Convert Google Drive URL if needed
+            ICON_DOWNLOAD_URL=$(convert_gdrive_url "$ICON_URL")
+            
             # Extract extension from URL
             ICON_EXT="${ICON_URL##*.}"
             case "$ICON_EXT" in
@@ -165,14 +223,22 @@ jobs:
             
             # Download icon
             if command -v wget &> /dev/null; then
-              wget -O "$MOD_FOLDER/$ICON_FILENAME" "$ICON_URL" || echo "⚠️ Failed to download icon (optional)"
+              wget --no-check-certificate -O "$MOD_FOLDER/$ICON_FILENAME" "$ICON_DOWNLOAD_URL" || echo "⚠️ Failed to download icon (optional)"
             elif command -v curl &> /dev/null; then
-              curl -L -o "$MOD_FOLDER/$ICON_FILENAME" "$ICON_URL" || echo "⚠️ Failed to download icon (optional)"
+              curl -L -o "$MOD_FOLDER/$ICON_FILENAME" "$ICON_DOWNLOAD_URL" || echo "⚠️ Failed to download icon (optional)"
             fi
             
             # Verify icon download
             if [ -f "$MOD_FOLDER/$ICON_FILENAME" ]; then
-              echo "✅ Icon downloaded successfully"
+              ICON_SIZE=$(stat -c%s "$MOD_FOLDER/$ICON_FILENAME" 2>/dev/null || stat -f%z "$MOD_FOLDER/$ICON_FILENAME" 2>/dev/null || echo "0")
+              
+              # Check if we downloaded a virus warning page for icon too
+              if [ "$ICON_SIZE" -lt 1000 ] && grep -q "virus" "$MOD_FOLDER/$ICON_FILENAME" 2>/dev/null; then
+                echo "⚠️ Icon download got virus warning page (file too large). Skipping icon."
+                rm -f "$MOD_FOLDER/$ICON_FILENAME"
+              else
+                echo "✅ Icon downloaded successfully ($ICON_SIZE bytes)"
+              fi
             else
               echo "⚠️ Icon download failed (optional file)"
             fi
@@ -268,6 +334,11 @@ jobs:
               - Comment \`/reject-mod [reason]\` to reject with explanation
               
               **Estimated Review Time:** 2-5 business days
+              
+              **📝 Note for large files:** If using Google Drive, large files may trigger virus warnings that prevent automatic download. For best results, consider using:
+              - GitHub Releases (recommended)
+              - Direct links from your own server
+              - Other file hosting services with direct download support
               
               We'll keep you updated on the status! 🚀`
             });
