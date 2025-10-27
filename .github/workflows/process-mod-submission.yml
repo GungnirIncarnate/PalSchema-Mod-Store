@@ -51,8 +51,7 @@ jobs:
               minGameVersion: parseField('Minimum Game Version'),
               homepage: parseField('Homepage'),
               sourceCode: parseField('Source Code'),
-              downloadLinks: parseField('Download Links'),
-              installation: parseField('Installation Instructions')
+              downloadLinks: parseField('Download Links')
             };
             
             // Create folder name from mod name

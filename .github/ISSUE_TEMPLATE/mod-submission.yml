@@ -111,18 +111,6 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: installation
-    attributes:
-      label: Installation Instructions
-      description: Brief instructions on how to install your mod
-      placeholder: |
-        1. Download the zip file
-        2. Extract to Palworld/Pal/Content/Paks/Mods/
-        3. Start the game with PalSchema
-    validations:
-      required: true
-
   - type: checkboxes
     id: requirements
     attributes:
