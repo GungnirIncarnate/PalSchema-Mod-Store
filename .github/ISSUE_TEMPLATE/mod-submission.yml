@@ -125,8 +125,6 @@ body:
       label: Requirements Check
       description: Please confirm the following
       options:
-        - label: My mod is compatible with PalSchema
-          required: true
         - label: My mod does not contain malicious code
           required: true
         - label: I have tested my mod and it works correctly
