@@ -95,21 +95,29 @@ body:
       description: Link to your mod's source code
       placeholder: "https://github.com/yourusername/your-mod"
 
-  - type: textarea
-    id: download-links
+  - type: input
+    id: mod-download-url
     attributes:
-      label: Download Links
+      label: Mod ZIP File Download URL
       description: |
-        Provide direct download links to your mod files. Include:
-        - Main mod zip file
-        - Icon (PNG/JPG, recommended 128x128 pixels)
+        Direct download link to your mod zip file.
+        You can upload to GitHub releases, Google Drive, Dropbox, etc.
         
-        You can upload files to GitHub releases, Google Drive, Dropbox, etc.
-      placeholder: |
-        Mod ZIP: https://github.com/yourusername/your-mod/releases/download/v1.0.0/YourMod-v1.0.0.zip
-        Icon: https://github.com/yourusername/your-mod/raw/main/icon.png
+        **File naming format:** YourModName-v1.0.0.zip
+      placeholder: "https://github.com/yourusername/your-mod/releases/download/v1.0.0/YourMod-v1.0.0.zip"
     validations:
       required: true
+
+  - type: input
+    id: icon-download-url
+    attributes:
+      label: Icon Download URL (Optional)
+      description: |
+        Direct download link to your mod icon (PNG/JPG format).
+        Recommended size: 128x128 pixels or larger.
+        
+        If you don't have an icon, we can use a default one.
+      placeholder: "https://github.com/yourusername/your-mod/raw/main/icon.png"
 
   - type: checkboxes
     id: requirements
