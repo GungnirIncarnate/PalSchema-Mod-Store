@@ -1,0 +1,8 @@
+{
+  "ModName": "Store Issue Submission Test",
+  "Version": "0.0.1",
+  "Description": "Store Issue Submission Test Mod",
+  "Author": "ModManagerTeam",
+  "Tags": ["pending"],
+  "MinGameVersion": "0.3.0"
+}
