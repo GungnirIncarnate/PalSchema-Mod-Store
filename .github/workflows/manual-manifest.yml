@@ -1,0 +1,69 @@
+name: Manual Manifest Update
+
+on:
+  # Can be triggered via GitHub API
+  repository_dispatch:
+    types: [update-manifest]
+  
+  # Manual trigger from GitHub UI
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual update'
+        required: false
+        default: 'Manual trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  update-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Generate manifest
+        run: |
+          echo "🔄 Updating manifest..."
+          python scripts/generate-manifest.py
+          echo "✅ Manifest generation complete"
+      
+      - name: Check for changes
+        id: git-check
+        run: |
+          if git diff --quiet manifest.json; then
+            echo "No changes detected in manifest.json"
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected in manifest.json"
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Show changes (if any)
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          echo "📋 Manifest changes:"
+          git diff manifest.json
+      
+      - name: Commit and push changes
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add manifest.json
+          git commit -m "🤖 Update manifest - ${{ github.event.inputs.reason || 'API trigger' }}"
+          git push
+          echo "✅ Manifest updated and pushed"
+      
+      - name: No changes needed
+        if: steps.git-check.outputs.changes == 'false'
+        run: |
+          echo "ℹ️  Manifest is already up to date"

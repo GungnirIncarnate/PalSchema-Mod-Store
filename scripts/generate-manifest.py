@@ -69,11 +69,20 @@ def generate_manifest():
     """Generate the manifest.json file."""
     print("🔄 Generating manifest.json...")
     
-    # Repository information
-    repo_info = {
-        "owner": os.environ.get("GITHUB_REPOSITORY_OWNER", "GungnirIncarnate"),
-        "repo": os.environ.get("GITHUB_REPOSITORY", "GungnirIncarnate/PalSchema-Mod-Store").split("/")[-1]
-    }
+    # Repository information - GitHub Actions sets these automatically
+    if "GITHUB_REPOSITORY" in os.environ:
+        # Running in GitHub Actions
+        full_repo = os.environ["GITHUB_REPOSITORY"]
+        owner, repo = full_repo.split("/")
+        repo_info = {"owner": owner, "repo": repo}
+        print(f"🔧 Detected GitHub Actions environment: {full_repo}")
+    else:
+        # Running locally - use defaults
+        repo_info = {
+            "owner": "GungnirIncarnate",
+            "repo": "PalSchema-Mod-Store"
+        }
+        print("🔧 Using local environment defaults")
     
     base_url = f"https://github.com/{repo_info['owner']}/{repo_info['repo']}"
     raw_url = f"https://raw.githubusercontent.com/{repo_info['owner']}/{repo_info['repo']}/main"
