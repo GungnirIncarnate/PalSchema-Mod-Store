@@ -113,6 +113,43 @@ jobs:
           
           echo "📝 Mod structure created. Manual download and validation required."
       
+      - name: Commit mod structure
+        if: contains(github.event.comment.body, '/approve-mod')
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add "mods/${{ steps.parse.outputs.folder-name }}/"
+          git commit -m "✅ Add approved mod structure: ${{ steps.parse.outputs.mod-name }} v${{ steps.parse.outputs.version }} (Issue #${{ steps.parse.outputs.issue-number }})"
+          git push
+          echo "🚀 Mod structure committed and pushed to repository"
+      
+      - name: Add approval comment
+        if: contains(github.event.comment.body, '/approve-mod')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `✅ **Mod Approved and Structure Created!**
+              
+              **${{ steps.parse.outputs.mod-name }}** has been approved and added to the mod store!
+              
+              **📁 Mod Location:** \`mods/${{ steps.parse.outputs.folder-name }}/\`
+              
+              **Next Steps:**
+              1. 📥 Download and add the mod files:
+                 - **Mod ZIP:** ${{ steps.parse.outputs.mod-download-url }}
+                 - **Icon:** ${{ steps.parse.outputs.icon-download-url }}
+              2. 🔄 Run manifest generation to update the store
+              3. ✅ Mod will be available in mod managers
+              
+              The basic mod structure has been created. Please download the actual mod files and add them to complete the process.
+              
+              Thank you for contributing to the PalSchema community! 🎉`
+            });
+      
       - name: Add processing comment
         if: github.event_name == 'issues' && (github.event.action == 'labeled' || github.event.action == 'opened')
         uses: actions/github-script@v7
