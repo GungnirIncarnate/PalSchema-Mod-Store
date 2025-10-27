@@ -1,0 +1,8 @@
+{
+  "ModName": "Submission Test",
+  "Version": "0.1.0",
+  "Description": "This is a submission test description",
+  "Author": "SubTestTeam",
+  "Tags": ["pending"],
+  "MinGameVersion": "0.3.0"
+}
