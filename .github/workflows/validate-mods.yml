@@ -1,0 +1,74 @@
+name: Validate Mods
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths: [ 'mods/**' ]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+    
+    - name: Run mod validation
+      id: validation
+      run: |
+        python scripts/validate-mod.py > validation_output.txt 2>&1
+        echo "validation_exit_code=$?" >> $GITHUB_OUTPUT
+      continue-on-error: true
+    
+    - name: Upload validation report
+      uses: actions/upload-artifact@v3
+      with:
+        name: validation-report
+        path: validation_output.txt
+    
+    - name: Comment validation results
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const validationOutput = fs.readFileSync('validation_output.txt', 'utf8');
+          const exitCode = '${{ steps.validation.outputs.validation_exit_code }}';
+          
+          const emoji = exitCode === '0' ? '✅' : '❌';
+          const status = exitCode === '0' ? 'PASSED' : 'FAILED';
+          
+          let comment = `${emoji} **Mod Validation ${status}**\n\n`;
+          
+          if (exitCode === '0') {
+            comment += '🎉 All mods passed validation!\n\n';
+          } else {
+            comment += '⚠️ Some mods failed validation. Please check the details below:\n\n';
+          }
+          
+          comment += '<details>\n<summary>📋 Full Validation Report</summary>\n\n';
+          comment += '```\n' + validationOutput + '\n```\n';
+          comment += '</details>';
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+    
+    - name: Fail if validation failed
+      if: steps.validation.outputs.validation_exit_code != '0'
+      run: |
+        echo "❌ Mod validation failed!"
+        exit 1
