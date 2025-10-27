@@ -35,12 +35,11 @@ Ensure your mod is properly packaged and tested:
 
 #### Mod Zip File (Required)
 - Name format: `YourModName-vX.Y.Z.zip`
-- Contains all mod files (`.pak`, `.lua`, configs, etc.)
-- Should not exceed 100MB
+- Contains all mod files (`.json`, `.jsonc`, `.pak`, configs, etc.)
 
 #### Icon File (Recommended)
 - Filename: `icon.png`, `icon.jpg`, or `icon.jpeg`
-- Size: 64x64 pixels recommended
+- Size: 256x256 pixels recommended
 - Clear, recognizable representation of your mod
 
 ### 4. Field Descriptions
@@ -52,7 +51,6 @@ Ensure your mod is properly packaged and tested:
 | `Description` | ✅ | String | Detailed mod description (max 500 chars) |
 | `Author` | ⭕ | String | Creator name or username |
 | `Tags` | ⭕ | Array | Categorization tags |
-| `RequiresPalSchema` | ⭕ | Boolean | Whether mod needs PalSchema (default: true) |
 | `MinGameVersion` | ⭕ | String | Minimum Palworld version |
 | `Homepage` | ⭕ | String | Mod's main page URL |
 | `SourceCode` | ⭕ | String | Source code repository URL |
