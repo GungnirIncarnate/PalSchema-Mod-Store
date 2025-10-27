@@ -168,40 +168,126 @@ jobs:
             
             echo "Saving as: $ZIP_FILENAME"
             
-            # Download with enhanced options for Google Drive
+            # Check if it's a Google Drive URL and use appropriate method
             DOWNLOAD_SUCCESS=false
-            if command -v wget &> /dev/null; then
-              echo "Using wget for download..."
-              wget --no-check-certificate --load-cookies /tmp/cookies.txt \
-                   "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id='$(echo "$DOWNLOAD_URL" | sed -n 's/.*id=\([^&]*\).*/\1/p') -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$(echo "$DOWNLOAD_URL" | sed -n 's/.*id=\([^&]*\).*/\1/p')" \
-                   -O "$MOD_FOLDER/$ZIP_FILENAME" 2>/dev/null && DOWNLOAD_SUCCESS=true
+            
+            if [[ "$MOD_ZIP_URL" == *"drive.google.com"* ]]; then
+              echo "🔄 Detected Google Drive URL, using specialized download method..."
               
-              # Fallback to simple wget if the complex method fails
-              if [ "$DOWNLOAD_SUCCESS" = false ]; then
-                echo "Fallback to simple wget..."
-                wget -O "$MOD_FOLDER/$ZIP_FILENAME" "$DOWNLOAD_URL" 2>/dev/null && DOWNLOAD_SUCCESS=true
+              # Extract Google Drive file ID
+              FILE_ID=""
+              if [[ "$MOD_ZIP_URL" == *"/file/d/"* ]]; then
+                FILE_ID=$(echo "$MOD_ZIP_URL" | sed -n 's/.*\/file\/d\/\([^\/]*\).*/\1/p')
+              elif [[ "$MOD_ZIP_URL" == *"id="* ]]; then
+                FILE_ID=$(echo "$MOD_ZIP_URL" | sed -n 's/.*id=\([^&]*\).*/\1/p')
               fi
-            elif command -v curl &> /dev/null; then
-              echo "Using curl for download..."
-              curl -L -o "$MOD_FOLDER/$ZIP_FILENAME" "$DOWNLOAD_URL" 2>/dev/null && DOWNLOAD_SUCCESS=true
+              
+              if [ ! -z "$FILE_ID" ]; then
+                echo "📁 Google Drive File ID: $FILE_ID"
+                
+                # Install gdown for Google Drive downloads
+                echo "📦 Installing gdown for Google Drive support..."
+                pip install gdown --quiet || echo "⚠️ Failed to install gdown, falling back to wget"
+                
+                # Try gdown first (best for Google Drive)
+                if command -v gdown &> /dev/null; then
+                  echo "Using gdown for Google Drive download..."
+                  if gdown "https://drive.google.com/uc?id=$FILE_ID" -O "$MOD_FOLDER/$ZIP_FILENAME" --quiet; then
+                    DOWNLOAD_SUCCESS=true
+                    echo "✅ Downloaded successfully with gdown"
+                  else
+                    echo "⚠️ gdown failed, trying alternative method..."
+                  fi
+                fi
+                
+                # Fallback: Advanced wget method with proper Google Drive handling
+                if [ "$DOWNLOAD_SUCCESS" = false ]; then
+                  echo "Using advanced wget method for Google Drive..."
+                  
+                  # Create temporary directory for cookies
+                  mkdir -p /tmp/gdrive_download
+                  
+                  # First request to get confirmation token
+                  CONFIRM_TOKEN=$(wget --quiet --save-cookies /tmp/gdrive_download/cookies.txt \
+                    --keep-session-cookies --no-check-certificate \
+                    "https://docs.google.com/uc?export=download&id=$FILE_ID" \
+                    -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p' | head -n1)
+                  
+                  if [ ! -z "$CONFIRM_TOKEN" ]; then
+                    echo "🔑 Got confirmation token: $CONFIRM_TOKEN"
+                    # Download with confirmation token
+                    if wget --load-cookies /tmp/gdrive_download/cookies.txt \
+                      "https://docs.google.com/uc?export=download&confirm=$CONFIRM_TOKEN&id=$FILE_ID" \
+                      -O "$MOD_FOLDER/$ZIP_FILENAME" --quiet; then
+                      DOWNLOAD_SUCCESS=true
+                      echo "✅ Downloaded successfully with wget + confirmation"
+                    fi
+                  else
+                    # Try direct download (for smaller files)
+                    echo "🔄 Trying direct download..."
+                    if wget "https://drive.google.com/uc?export=download&id=$FILE_ID" \
+                      -O "$MOD_FOLDER/$ZIP_FILENAME" --quiet; then
+                      DOWNLOAD_SUCCESS=true
+                      echo "✅ Downloaded successfully with direct wget"
+                    fi
+                  fi
+                  
+                  # Cleanup
+                  rm -rf /tmp/gdrive_download
+                fi
+              fi
             else
-              echo "❌ Neither wget nor curl available for download"
+              echo "🔄 Regular URL detected, using standard download..."
+              # Standard download for non-Google Drive URLs
+              if command -v wget &> /dev/null; then
+                wget -O "$MOD_FOLDER/$ZIP_FILENAME" "$DOWNLOAD_URL" --quiet && DOWNLOAD_SUCCESS=true
+              elif command -v curl &> /dev/null; then
+                curl -L -o "$MOD_FOLDER/$ZIP_FILENAME" "$DOWNLOAD_URL" --silent && DOWNLOAD_SUCCESS=true
+              fi
             fi
             
             # Verify download
-            if [ -f "$MOD_FOLDER/$ZIP_FILENAME" ] && [ "$DOWNLOAD_SUCCESS" = true ]; then
+            if [ -f "$MOD_FOLDER/$ZIP_FILENAME" ]; then
               FILE_SIZE=$(stat -c%s "$MOD_FOLDER/$ZIP_FILENAME" 2>/dev/null || stat -f%z "$MOD_FOLDER/$ZIP_FILENAME" 2>/dev/null || echo "0")
               
-              # Check if we downloaded a virus warning page instead of actual file
-              if [ "$FILE_SIZE" -lt 10000 ] && grep -q "virus" "$MOD_FOLDER/$ZIP_FILENAME" 2>/dev/null; then
-                echo "⚠️ Downloaded virus warning page instead of file. File may be too large for automatic download."
-                echo "📝 Please use a direct download link or upload to GitHub releases instead of Google Drive."
-                rm -f "$MOD_FOLDER/$ZIP_FILENAME"
-              else
+              # Multiple checks for virus warning pages or failed downloads
+              IS_VALID_FILE=true
+              
+              # Check 1: File size (virus warnings are typically small)
+              if [ "$FILE_SIZE" -lt 5000 ]; then
+                echo "⚠️ Downloaded file is very small ($FILE_SIZE bytes), checking content..."
+                
+                # Check 2: Look for HTML content (virus warnings are HTML pages)
+                if file "$MOD_FOLDER/$ZIP_FILENAME" | grep -q "HTML"; then
+                  echo "❌ Downloaded HTML page instead of ZIP file"
+                  IS_VALID_FILE=false
+                elif grep -q -i "virus\|warning\|google\|drive" "$MOD_FOLDER/$ZIP_FILENAME" 2>/dev/null; then
+                  echo "❌ Downloaded virus warning page instead of ZIP file"
+                  IS_VALID_FILE=false
+                fi
+              fi
+              
+              # Check 3: Try to verify it's actually a ZIP file
+              if [ "$IS_VALID_FILE" = true ]; then
+                if ! file "$MOD_FOLDER/$ZIP_FILENAME" | grep -q -i "zip\|archive"; then
+                  echo "⚠️ File doesn't appear to be a valid ZIP archive"
+                  # Don't mark as invalid yet, some ZIP files might not be detected properly
+                fi
+              fi
+              
+              if [ "$IS_VALID_FILE" = true ] && [ "$DOWNLOAD_SUCCESS" = true ]; then
                 echo "✅ Mod ZIP downloaded successfully ($FILE_SIZE bytes)"
+              else
+                echo "❌ Download failed - got virus warning or invalid file instead of ZIP"
+                echo "📝 Recommendations for mod author:"
+                echo "  • Upload to GitHub Releases (recommended)"
+                echo "  • Use direct download links"
+                echo "  • Avoid Google Drive for files >100MB"
+                echo "  • Make sure sharing settings allow direct access"
+                rm -f "$MOD_FOLDER/$ZIP_FILENAME"
               fi
             else
-              echo "❌ Mod ZIP download failed"
+              echo "❌ Mod ZIP download failed - file not created"
             fi
           else
             echo "⚠️ No mod ZIP URL provided"
