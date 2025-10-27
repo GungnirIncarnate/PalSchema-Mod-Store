@@ -71,8 +71,8 @@ def generate_manifest():
     
     # Repository information
     repo_info = {
-        "owner": os.environ.get("GITHUB_REPOSITORY_OWNER", "USERNAME"),
-        "repo": os.environ.get("GITHUB_REPOSITORY", "USERNAME/palworld-mod-store").split("/")[-1]
+        "owner": os.environ.get("GITHUB_REPOSITORY_OWNER", "GungnirIncarnate"),
+        "repo": os.environ.get("GITHUB_REPOSITORY", "GungnirIncarnate/PalSchema-Mod-Store").split("/")[-1]
     }
     
     base_url = f"https://github.com/{repo_info['owner']}/{repo_info['repo']}"
