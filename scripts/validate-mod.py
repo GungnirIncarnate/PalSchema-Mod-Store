@@ -129,12 +129,12 @@ class ModValidator:
                 
                 file_list = zip_file.namelist()
                 
-                # Check for common mod files
-                has_pak_files = any(f.endswith('.pak') for f in file_list)
-                has_lua_files = any(f.endswith('.lua') for f in file_list)
+                # Check for common PalSchema mod files (JSON-based)
+                has_json_files = any(f.endswith('.json') or f.endswith('.jsonc') for f in file_list)
+                has_folders = any('/' in f for f in file_list)  # Check for folder structure
                 
-                if not has_pak_files and not has_lua_files:
-                    self.warning(f"No .pak or .lua files found in {zip_path.name}, is this a valid mod?")
+                if not has_json_files and not has_folders:
+                    self.warning(f"No .json files or folder structure found in {zip_path.name}, is this a valid PalSchema mod?")
                 
                 # Check for suspicious files
                 suspicious_extensions = ['.exe', '.dll', '.bat', '.cmd', '.ps1']
