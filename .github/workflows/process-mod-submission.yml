@@ -2,7 +2,7 @@ name: Process Mod Submission
 
 on:
   issues:
-    types: [labeled]
+    types: [opened, labeled]
   issue_comment:
     types: [created]
 
@@ -13,10 +13,31 @@ permissions:
 
 jobs:
   process-submission:
-    if: (github.event_name == 'issues' && contains(github.event.label.name, 'mod-submission')) || (github.event_name == 'issue_comment' && contains(github.event.issue.labels.*.name, 'mod-submission'))
+    if: |
+      (github.event_name == 'issues' && (
+        contains(github.event.issue.labels.*.name, 'mod-submission') ||
+        contains(github.event.issue.title, '[MOD SUBMISSION]') ||
+        contains(github.event.issue.title, 'MOD SUBMISSION')
+      )) || 
+      (github.event_name == 'issue_comment' && contains(github.event.issue.labels.*.name, 'mod-submission'))
     runs-on: ubuntu-latest
     
     steps:
+      - name: Debug event information
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Event action: ${{ github.event.action }}"
+          echo "Issue title: ${{ github.event.issue.title }}"
+          echo "Issue labels: ${{ toJson(github.event.issue.labels) }}"
+          if [ "${{ github.event_name }}" = "issues" ]; then
+            echo "Issue event detected"
+            echo "Label name: ${{ github.event.label.name }}"
+          fi
+          if [ "${{ github.event_name }}" = "issue_comment" ]; then
+            echo "Comment event detected"
+            echo "Comment body: ${{ github.event.comment.body }}"
+          fi
+      
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -93,7 +114,7 @@ jobs:
           echo "📝 Mod structure created. Manual download and validation required."
       
       - name: Add processing comment
-        if: github.event_name == 'issues' && github.event.action == 'labeled'
+        if: github.event_name == 'issues' && (github.event.action == 'labeled' || github.event.action == 'opened')
         uses: actions/github-script@v7
         with:
           script: |
