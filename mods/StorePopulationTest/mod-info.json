@@ -1,0 +1,8 @@
+{
+  "ModName": "Store Population Test",
+  "Version": "0.1",
+  "Description": "Store Test mod Description",
+  "Author": "Gun",
+  "Tags": ["pending"],
+  "MinGameVersion": "0.3.0"
+}
