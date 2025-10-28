@@ -12,10 +12,6 @@ mods/
 !mods/ExampleMod/
 !mods/ExampleMod/**
 
-# Ignore SubmissionTest mod locally (but keep on GitHub)
-mods/SubmissionTest/
-mods/SubmissionTest/**
-
 # ===========================================
 # Python
 # ===========================================
