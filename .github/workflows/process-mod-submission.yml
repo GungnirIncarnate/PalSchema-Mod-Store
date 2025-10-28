@@ -339,8 +339,9 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action Bot"
-          git add "mods/${{ steps.parse.outputs.folder-name }}/"
-          git commit -f -m "✅ Add approved mod with files: ${{ steps.parse.outputs.mod-name }} v${{ steps.parse.outputs.version }} (Issue #${{ steps.parse.outputs.issue-number }})"
+          git config --local advice.addIgnoredFile false
+          git add -f "mods/${{ steps.parse.outputs.folder-name }}/"
+          git commit -m "✅ Add approved mod with files: ${{ steps.parse.outputs.mod-name }} v${{ steps.parse.outputs.version }} (Issue #${{ steps.parse.outputs.issue-number }})"
           git push
           echo "🚀 Mod structure committed and pushed to repository"
       
