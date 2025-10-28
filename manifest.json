@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-10-28T01:10:34.700659Z",
+  "last_updated": "2025-10-28T01:10:46.071655Z",
   "repository": {
     "url": "https://github.com/GungnirIncarnate/PalSchema-Mod-Store",
     "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main"
@@ -21,25 +21,8 @@
         "quality-of-life",
         "example"
       ],
-      "last_updated": "2025-10-28T01:10:33.489748Z",
+      "last_updated": "2025-10-28T01:10:45.174659Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ExampleMod/icon.png"
-    },
-    {
-      "id": "submissiontest",
-      "name": "Submission Test",
-      "version": "0.1.0",
-      "description": "This is a submission test description",
-      "author": "SubTestTeam",
-      "folder_name": "SubmissionTest",
-      "download_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/SubmissionTest/SubmissionTest-v0.1.0.zip",
-      "file_size": 44035725,
-      "checksum": "sha256:9e019ae77c5f2d804304e7b31f0526c2efd255f2528b9be7050e17e62e4c8a3a",
-      "min_game_version": "0.3.0",
-      "tags": [
-        "pending"
-      ],
-      "last_updated": "2025-10-28T01:10:33.540748Z",
-      "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/SubmissionTest/icon.png"
     }
   ]
 }
