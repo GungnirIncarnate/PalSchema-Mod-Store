@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-10-28T13:46:17.611852Z",
+  "last_updated": "2025-10-28T14:07:36.856824Z",
   "repository": {
     "url": "https://github.com/GungnirIncarnate/PalSchema-Mod-Store",
     "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main"
@@ -8,6 +8,7 @@
   "mods": [
     {
       "id": "examplemod",
+      "uuid": "388a6fee-4b28-4cb0-915d-6b586e392348",
       "name": "Example Quality of Life Mod",
       "version": "1.0.0",
       "description": "A demonstration mod that showcases the proper structure.",
@@ -21,7 +22,7 @@
         "quality-of-life",
         "example"
       ],
-      "last_updated": "2025-10-28T13:46:17.262370Z",
+      "last_updated": "2025-10-28T00:40:46.580278Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ExampleMod/icon.png"
     }
   ]

@@ -10,6 +10,7 @@ import json
 import os
 import hashlib
 import zipfile
+import uuid
 from datetime import datetime
 from pathlib import Path
 import sys
@@ -117,6 +118,20 @@ def generate_manifest():
             print(f"⚠️  No valid mod-info.json found for {mod_dir.name}")
             continue
         
+        # Generate or preserve UUID
+        if "UUID" not in mod_info:
+            mod_info["UUID"] = str(uuid.uuid4())
+            # Save the updated mod-info.json with UUID
+            mod_info_path = mod_dir / "mod-info.json"
+            try:
+                with open(mod_info_path, 'w', encoding='utf-8') as f:
+                    json.dump(mod_info, f, indent=2, ensure_ascii=False)
+                print(f"🔑 Generated UUID for {mod_dir.name}: {mod_info['UUID']}")
+            except Exception as e:
+                print(f"⚠️  Failed to save UUID for {mod_dir.name}: {e}")
+        else:
+            print(f"🔑 Using existing UUID for {mod_dir.name}: {mod_info['UUID']}")
+        
         # Required fields
         required_fields = ["ModName", "Version", "Description"]
         missing_fields = [field for field in required_fields if field not in mod_info]
@@ -133,6 +148,7 @@ def generate_manifest():
         # Generate mod entry
         mod_entry = {
             "id": mod_dir.name.lower().replace(" ", "-"),
+            "uuid": mod_info["UUID"],
             "name": mod_info["ModName"],
             "version": str(mod_info["Version"]),
             "description": mod_info["Description"],

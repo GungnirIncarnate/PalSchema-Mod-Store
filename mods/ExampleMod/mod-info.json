@@ -1,1 +1,12 @@
-{"ModName":"Example Quality of Life Mod","Version":"1.0.0","Description":"A demonstration mod that showcases the proper structure.","Author":"ModStore Team","Tags":["quality-of-life","example"],"MinGameVersion":"0.3.0"}
+{
+  "ModName": "Example Quality of Life Mod",
+  "Version": "1.0.0",
+  "Description": "A demonstration mod that showcases the proper structure.",
+  "Author": "ModStore Team",
+  "Tags": [
+    "quality-of-life",
+    "example"
+  ],
+  "MinGameVersion": "0.3.0",
+  "UUID": "388a6fee-4b28-4cb0-915d-6b586e392348"
+}

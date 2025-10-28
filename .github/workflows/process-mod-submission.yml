@@ -99,9 +99,14 @@ jobs:
           # Create mod directory
           mkdir -p "mods/${{ steps.parse.outputs.folder-name }}"
           
-          # Create mod-info.json
-          cat > "mods/${{ steps.parse.outputs.folder-name }}/mod-info.json" << 'EOF'
+          # Generate UUID for the mod
+          MOD_UUID=$(python3 -c "import uuid; print(str(uuid.uuid4()))")
+          echo "🔑 Generated UUID: $MOD_UUID"
+          
+          # Create mod-info.json with UUID
+          cat > "mods/${{ steps.parse.outputs.folder-name }}/mod-info.json" << EOF
           {
+            "UUID": "$MOD_UUID",
             "ModName": "${{ steps.parse.outputs.mod-name }}",
             "Version": "${{ steps.parse.outputs.version }}",
             "Description": "${{ steps.parse.outputs.description }}",

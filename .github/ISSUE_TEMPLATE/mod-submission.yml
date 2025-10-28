@@ -13,6 +13,8 @@ body:
         Thank you for contributing to the PalSchema Mod Store! Please fill out all the required information below.
         
         **⚠️ Important**: Make sure your mod works with PalSchema and follows our guidelines.
+        
+        **🔑 Note**: A unique identifier (UUID) will be automatically generated for your mod to prevent duplicate installations and enable proper tracking.
 
   - type: input
     id: mod-name
