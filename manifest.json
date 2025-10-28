@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-10-28T00:05:39.805730Z",
+  "last_updated": "2025-10-28T00:36:00.541787Z",
   "repository": {
     "url": "https://github.com/GungnirIncarnate/PalSchema-Mod-Store",
     "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main"
@@ -21,8 +21,25 @@
         "quality-of-life",
         "example"
       ],
-      "last_updated": "2025-10-28T00:05:38.470274Z",
+      "last_updated": "2025-10-28T00:35:45.854877Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ExampleMod/icon.png"
+    },
+    {
+      "id": "storepopulationtest",
+      "name": "Store Population Test",
+      "version": "0.1",
+      "description": "Store Test mod Description",
+      "author": "Gun",
+      "folder_name": "StorePopulationTest",
+      "download_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/StorePopulationTest/StorePopulationTest-v0.1.zip",
+      "file_size": 44035725,
+      "checksum": "sha256:9e019ae77c5f2d804304e7b31f0526c2efd255f2528b9be7050e17e62e4c8a3a",
+      "min_game_version": "0.3.0",
+      "tags": [
+        "pending"
+      ],
+      "last_updated": "2025-10-27T15:04:06Z",
+      "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/StorePopulationTest/icon.png"
     },
     {
       "id": "submissiontest",
@@ -38,7 +55,7 @@
       "tags": [
         "pending"
       ],
-      "last_updated": "2025-10-28T00:05:38.519274Z",
+      "last_updated": "2025-10-28T00:35:45.904877Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/SubmissionTest/icon.png"
     }
   ]
