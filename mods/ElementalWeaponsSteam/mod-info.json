@@ -1,9 +1,0 @@
-{
-  "UUID": "087221ec-f707-49ea-a9a9-df8c7bfe4f1a",
-  "ModName": "Elemental Weapons (Steam)",
-  "Version": "0.1.2",
-  "Description": "Currently adds 9 new variations for the Revolver (With plans for other weapons), each one deals a type of elemental damage fire/water/dark/etc with the chance of inflicting different status effects such as burn/soak/stun/sleep/etc.",
-  "Author": "GungnirIncarnate",
-  "Tags": ["pending"],
-  "MinGameVersion": "0.3.0"
-}
