@@ -316,30 +316,68 @@ jobs:
             # Convert Google Drive URL if needed
             ICON_DOWNLOAD_URL=$(convert_gdrive_url "$ICON_URL")
             
-            # Extract extension from URL
-            ICON_EXT="${ICON_URL##*.}"
-            case "$ICON_EXT" in
-              png|jpg|jpeg|gif|webp) ICON_FILENAME="icon.$ICON_EXT" ;;
-              *) ICON_FILENAME="icon.png" ;;
-            esac
+            # Detect extension from URL
+            ICON_EXT="png"
+            if [[ "$ICON_URL" =~ \.(jpg|jpeg|png|gif|webp)(\?|$) ]]; then
+              ICON_EXT=$(echo "$ICON_URL" | sed -n 's/.*\.\(jpg\|jpeg\|png\|gif\|webp\).*/\1/p')
+            fi
+            ICON_FILENAME="icon.$ICON_EXT"
             
-            # Download icon
+            echo "Saving icon as: $ICON_FILENAME"
+            
+            # Download icon with headers to handle various image hosting sites
+            ICON_SUCCESS=false
             if command -v wget &> /dev/null; then
-              wget --no-check-certificate -O "$MOD_FOLDER/$ICON_FILENAME" "$ICON_DOWNLOAD_URL" || echo "⚠️ Failed to download icon (optional)"
+              # Use wget with user agent and referrer for sites like NexusMods
+              if wget --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+                     --no-check-certificate \
+                     --timeout=30 \
+                     -O "$MOD_FOLDER/$ICON_FILENAME" \
+                     "$ICON_DOWNLOAD_URL" 2>/dev/null; then
+                ICON_SUCCESS=true
+              fi
             elif command -v curl &> /dev/null; then
-              curl -L -o "$MOD_FOLDER/$ICON_FILENAME" "$ICON_DOWNLOAD_URL" || echo "⚠️ Failed to download icon (optional)"
+              # Fallback to curl with similar headers
+              if curl -L \
+                     -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+                     --max-time 30 \
+                     -o "$MOD_FOLDER/$ICON_FILENAME" \
+                     "$ICON_DOWNLOAD_URL" 2>/dev/null; then
+                ICON_SUCCESS=true
+              fi
             fi
             
             # Verify icon download
             if [ -f "$MOD_FOLDER/$ICON_FILENAME" ]; then
               ICON_SIZE=$(stat -c%s "$MOD_FOLDER/$ICON_FILENAME" 2>/dev/null || stat -f%z "$MOD_FOLDER/$ICON_FILENAME" 2>/dev/null || echo "0")
               
-              # Check if we downloaded a virus warning page for icon too
-              if [ "$ICON_SIZE" -lt 1000 ] && grep -q "virus" "$MOD_FOLDER/$ICON_FILENAME" 2>/dev/null; then
-                echo "⚠️ Icon download got virus warning page (file too large). Skipping icon."
-                rm -f "$MOD_FOLDER/$ICON_FILENAME"
+              # Check if it's actually an image file
+              IS_VALID_IMAGE=true
+              FILE_TYPE=$(file -b --mime-type "$MOD_FOLDER/$ICON_FILENAME" 2>/dev/null || echo "unknown")
+              
+              # Check 1: File size (too small is likely an error page)
+              if [ "$ICON_SIZE" -lt 500 ]; then
+                echo "⚠️ Downloaded icon is very small ($ICON_SIZE bytes), likely not a valid image"
+                IS_VALID_IMAGE=false
+              fi
+              
+              # Check 2: Verify it's an image MIME type
+              if ! echo "$FILE_TYPE" | grep -q "image"; then
+                echo "⚠️ Downloaded file is not an image (type: $FILE_TYPE)"
+                IS_VALID_IMAGE=false
+              fi
+              
+              # Check 3: Look for HTML content (error pages)
+              if grep -q -i "<html\|<!DOCTYPE" "$MOD_FOLDER/$ICON_FILENAME" 2>/dev/null; then
+                echo "⚠️ Downloaded HTML page instead of image"
+                IS_VALID_IMAGE=false
+              fi
+              
+              if [ "$IS_VALID_IMAGE" = true ] && [ "$ICON_SUCCESS" = true ]; then
+                echo "✅ Icon downloaded successfully ($ICON_SIZE bytes, type: $FILE_TYPE)"
               else
-                echo "✅ Icon downloaded successfully ($ICON_SIZE bytes)"
+                echo "⚠️ Icon download failed or invalid (optional file). Removing invalid file."
+                rm -f "$MOD_FOLDER/$ICON_FILENAME"
               fi
             else
               echo "⚠️ Icon download failed (optional file)"
