@@ -48,6 +48,24 @@ This approach keeps local development fast while maintaining full functionality 
 
 ## 📦 Adding a New Mod
 
+### 🎯 Recommended Method: Issue Template Submission
+
+The easiest way to submit your mod is through our automated submission system:
+
+1. **[📝 Click here to submit a new mod](../../issues/new?assignees=GungnirIncarnate&labels=mod-submission%2Cpending-review&template=mod-submission.yml&title=%5BMOD+SUBMISSION%5D+)**
+2. Fill out the required information:
+   - Mod name, version, and description
+   - Required Palworld version (Steam/Game Pass/Both)
+   - Download URL for your mod ZIP file
+   - Optional: Icon and homepage URL
+3. Submit the issue
+4. Wait for review and approval from maintainers
+5. Once approved with `/approve-mod` comment, your mod will be automatically added!
+
+### 📋 Manual Method: Pull Request
+
+Alternatively, you can submit directly via pull request:
+
 1. Create a new directory in `mods/` with your mod name
 2. Add your mod files in a zip format: `ModName-vX.Y.Z.zip`
 3. Create a `mod-info.json` file with the required metadata
