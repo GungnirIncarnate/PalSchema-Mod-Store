@@ -69,10 +69,8 @@ jobs:
               description: parseField('Description'),
               author: parseField('Author'),
               tags: parseField('Tags'),
-              minGameVersion: parseField('Minimum Game Version'),
               requiredVersion: parseField('Required Palworld Version'),
               homepage: parseField('Homepage'),
-              sourceCode: parseField('Source Code'),
               modDownloadUrl: parseField('Mod ZIP File Download URL'),
               iconDownloadUrl: parseField('Icon Download URL')
             };

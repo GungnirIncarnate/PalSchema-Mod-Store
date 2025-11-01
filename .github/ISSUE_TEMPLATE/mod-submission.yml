@@ -74,15 +74,6 @@ body:
     validations:
       required: true
 
-  - type: input
-    id: min-game-version
-    attributes:
-      label: Minimum Game Version
-      description: Minimum Palworld version required
-      placeholder: "0.3.0"
-    validations:
-      required: true
-
   - type: dropdown
     id: required-version
     attributes:
@@ -100,13 +91,6 @@ body:
     attributes:
       label: Homepage (optional)
       description: Link to your mod's homepage or documentation
-      placeholder: "https://github.com/yourusername/your-mod"
-
-  - type: input
-    id: source-code
-    attributes:
-      label: Source Code (optional)
-      description: Link to your mod's source code
       placeholder: "https://github.com/yourusername/your-mod"
 
   - type: input
