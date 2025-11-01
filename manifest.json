@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-11-01T03:57:52.922657Z",
+  "last_updated": "2025-11-01T04:24:15.176138Z",
   "repository": {
     "url": "https://github.com/GungnirIncarnate/PalSchema-Mod-Store",
     "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main"
@@ -11,7 +11,6 @@
       "uuid": "388a6fee-4b28-4cb0-915d-6b586e392348",
       "name": "Example Quality of Life Mod",
       "version": "1.0.0",
-      "required_version": "gamepass",
       "description": "A demonstration mod that showcases the proper structure.",
       "author": "ModStore Team",
       "folder_name": "ExampleMod",
@@ -23,7 +22,7 @@
         "quality-of-life",
         "example"
       ],
-      "last_updated": "2025-11-01T03:57:52.542798Z",
+      "last_updated": "2025-11-01T04:24:13.900031Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ExampleMod/icon.png"
     },
     {
@@ -31,7 +30,6 @@
       "uuid": "2a3ec0e7-2029-435d-ba5c-238524ab4e24",
       "name": "Elemental Weapons",
       "version": "0.1.3",
-      "required_version": "steam",
       "description": "Currently adds 9 new variations for the Revolver and Laser Gatling (With plans for other weapons), each one deals a type of elemental damage fire/water/dark/etc with the chance of inflicting different status effects such as burn/soak/stun/sleep/etc.",
       "author": "GungnirIncarnate",
       "folder_name": "ElementalWeapons",
@@ -42,7 +40,7 @@
       "tags": [
         "pending"
       ],
-      "last_updated": "2025-11-01T03:57:52.542798Z",
+      "last_updated": "2025-11-01T04:24:13.900031Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ElementalWeapons/icon.png"
     }
   ]
