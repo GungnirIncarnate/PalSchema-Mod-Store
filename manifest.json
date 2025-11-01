@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-11-01T07:49:23.396020Z",
+  "last_updated": "2025-11-01T08:00:57.947723Z",
   "repository": {
     "url": "https://github.com/GungnirIncarnate/PalSchema-Mod-Store",
     "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main"
@@ -23,27 +23,26 @@
         "quality-of-life",
         "example"
       ],
-      "last_updated": "2025-11-01T07:49:21.513497Z",
+      "last_updated": "2025-11-01T08:00:55.834249Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ExampleMod/icon.png"
     },
     {
       "id": "elementalweapons",
-      "uuid": "63c02354-dbe4-449a-a1a8-7fee0ce47693",
+      "uuid": "c38eb74e-0e59-40e6-9caf-24b18ae7f922",
       "name": "Elemental Weapons",
       "version": "0.1.2",
-      "required_version": "gamepass",
-      "description": "Currently adds 9 new variations for the Revolver (With plans for other weapons), each one deals a type of elemental damage fire/water/dark/etc. with the chance of inflicting different status effects such as burn/soak/stun/sleep/etc.",
+      "required_version": "steam",
+      "description": "Currently adds 9 new variations for the Revolver (With plans for other weapons), each one deals a type of elemental damage fire/water/dark/etc with the chance of inflicting different status effects such as burn/soak/stun/sleep/etc.",
       "author": "GungnirIncarnate",
       "folder_name": "ElementalWeapons",
       "download_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ElementalWeapons/ElementalWeapons-v0.1.2.zip",
-      "file_size": 41224,
-      "checksum": "sha256:6434a56e4a9d5adfb6ca4f981f5df8edcbd560df6bce8fdb5f1563ca9c8a555e",
+      "file_size": 63268,
+      "checksum": "sha256:393c26075b79b0661f4c38db18d226dc55880b5a4b81ef9e17b5cfedde4c6831",
       "min_game_version": "0.3.0",
       "tags": [
         "pending"
       ],
-      "last_updated": "2025-11-01T07:49:21.513497Z",
-      "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ElementalWeapons/icon.jpg"
+      "last_updated": "2025-10-31T11:13:31Z"
     }
   ]
 }
