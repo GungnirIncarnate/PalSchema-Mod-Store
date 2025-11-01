@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-11-01T06:45:11.308790Z",
+  "last_updated": "2025-11-01T07:14:06.118165Z",
   "repository": {
     "url": "https://github.com/GungnirIncarnate/PalSchema-Mod-Store",
     "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main"
@@ -11,7 +11,7 @@
       "uuid": "388a6fee-4b28-4cb0-915d-6b586e392348",
       "name": "Example Quality of Life Mod",
       "version": "1.0.0",
-      "required_version": "both",
+      "required_version": "gamepass",
       "description": "A demonstration mod that showcases the proper structure.",
       "author": "ModStore Team",
       "folder_name": "ExampleMod",
@@ -23,7 +23,7 @@
         "quality-of-life",
         "example"
       ],
-      "last_updated": "2025-11-01T06:45:10.130311Z",
+      "last_updated": "2025-11-01T07:14:05.020307Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ExampleMod/icon.png"
     }
   ]
