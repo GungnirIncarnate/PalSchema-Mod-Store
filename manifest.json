@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-11-01T07:14:06.118165Z",
+  "last_updated": "2025-11-01T07:15:25.994355Z",
   "repository": {
     "url": "https://github.com/GungnirIncarnate/PalSchema-Mod-Store",
     "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main"
@@ -23,8 +23,27 @@
         "quality-of-life",
         "example"
       ],
-      "last_updated": "2025-11-01T07:14:05.020307Z",
+      "last_updated": "2025-11-01T07:15:24.040438Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ExampleMod/icon.png"
+    },
+    {
+      "id": "elementalweapons",
+      "uuid": "63c02354-dbe4-449a-a1a8-7fee0ce47693",
+      "name": "Elemental Weapons",
+      "version": "0.1.2",
+      "required_version": "gamepass",
+      "description": "Currently adds 9 new variations for the Revolver (With plans for other weapons), each one deals a type of elemental damage fire/water/dark/etc. with the chance of inflicting different status effects such as burn/soak/stun/sleep/etc.",
+      "author": "GungnirIncarnate",
+      "folder_name": "ElementalWeapons",
+      "download_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ElementalWeapons/ElementalWeapons-v0.1.2.zip",
+      "file_size": 41224,
+      "checksum": "sha256:6434a56e4a9d5adfb6ca4f981f5df8edcbd560df6bce8fdb5f1563ca9c8a555e",
+      "min_game_version": "0.3.0",
+      "tags": [
+        "pending"
+      ],
+      "last_updated": "2025-10-31T11:12:41Z",
+      "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ElementalWeapons/icon.jpg"
     }
   ]
 }
