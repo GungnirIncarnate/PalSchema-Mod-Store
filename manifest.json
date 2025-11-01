@@ -11,7 +11,7 @@
       "uuid": "388a6fee-4b28-4cb0-915d-6b586e392348",
       "name": "Example Quality of Life Mod",
       "version": "1.0.0",
-      "required_version": "gamepass",
+      "required_version": "both",
       "description": "A demonstration mod that showcases the proper structure.",
       "author": "ModStore Team",
       "folder_name": "ExampleMod",
