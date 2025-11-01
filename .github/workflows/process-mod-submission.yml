@@ -412,6 +412,20 @@ jobs:
               Your mod is now live in the PalSchema Mod Store! Thank you for contributing! 🚀`
             });
       
+      - name: Close issue after successful processing
+        if: contains(github.event.comment.body, '/approve-mod')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.update({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'closed',
+              state_reason: 'completed'
+            });
+            console.log('Issue closed successfully after mod approval');
+      
       - name: Add processing comment
         if: github.event_name == 'issues' && github.event.action == 'opened'
         uses: actions/github-script@v7
