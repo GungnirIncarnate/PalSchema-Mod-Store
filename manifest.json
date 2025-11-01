@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-11-01T04:40:06.926048Z",
+  "last_updated": "2025-11-01T04:41:25.114165Z",
   "repository": {
     "url": "https://github.com/GungnirIncarnate/PalSchema-Mod-Store",
     "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main"
@@ -16,14 +16,14 @@
       "author": "ModStore Team",
       "folder_name": "ExampleMod",
       "download_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ExampleMod/ExampleMod-v1.0.0.zip",
-      "file_size": 50743,
-      "checksum": "sha256:d9a6188331de4b91a7f78120f2fc7c41f8ec2e18b0a1ef9a1ce1beb4b7e89288",
+      "file_size": 810,
+      "checksum": "sha256:7a2f7461edbd7623c0bb354ed5d96c104733f2e46cc0f7204bc2abbe3bad6d35",
       "min_game_version": "0.3.0",
       "tags": [
         "quality-of-life",
         "example"
       ],
-      "last_updated": "2025-11-01T04:40:06.552257Z",
+      "last_updated": "2025-11-01T04:41:24.149832Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ExampleMod/icon.png"
     }
   ]
