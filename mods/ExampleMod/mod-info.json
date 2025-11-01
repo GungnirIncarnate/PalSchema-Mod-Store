@@ -3,6 +3,7 @@
   "Version": "1.0.0",
   "Description": "A demonstration mod that showcases the proper structure.",
   "Author": "ModStore Team",
+  "RequiredVersion": "gamepass",
   "Tags": [
     "quality-of-life",
     "example"

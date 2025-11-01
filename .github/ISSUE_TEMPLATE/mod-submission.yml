@@ -83,6 +83,18 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: required-version
+    attributes:
+      label: Required Palworld Version
+      description: Which version(s) of Palworld does your mod support?
+      options:
+        - Steam
+        - Game Pass
+        - Both
+    validations:
+      required: true
+
   - type: input
     id: homepage
     attributes:

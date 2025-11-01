@@ -70,11 +70,22 @@ jobs:
               author: parseField('Author'),
               tags: parseField('Tags'),
               minGameVersion: parseField('Minimum Game Version'),
+              requiredVersion: parseField('Required Palworld Version'),
               homepage: parseField('Homepage'),
               sourceCode: parseField('Source Code'),
               modDownloadUrl: parseField('Mod ZIP File Download URL'),
               iconDownloadUrl: parseField('Icon Download URL')
             };
+            
+            // Normalize required version to lowercase
+            let requiredVersion = modInfo.requiredVersion.toLowerCase();
+            if (requiredVersion.includes('game pass')) {
+              requiredVersion = 'gamepass';
+            } else if (requiredVersion.includes('steam')) {
+              requiredVersion = 'steam';
+            } else if (requiredVersion.includes('both')) {
+              requiredVersion = 'both';
+            }
             
             // Create folder name from mod name
             const folderName = modInfo.name.replace(/[^a-zA-Z0-9]/g, '');
@@ -84,6 +95,7 @@ jobs:
             core.setOutput('version', modInfo.version);
             core.setOutput('description', modInfo.description);
             core.setOutput('author', modInfo.author);
+            core.setOutput('required-version', requiredVersion);
             core.setOutput('mod-download-url', modInfo.modDownloadUrl);
             core.setOutput('icon-download-url', modInfo.iconDownloadUrl);
             core.setOutput('issue-number', issue.number);
@@ -111,6 +123,7 @@ jobs:
             "Version": "${{ steps.parse.outputs.version }}",
             "Description": "${{ steps.parse.outputs.description }}",
             "Author": "${{ steps.parse.outputs.author }}",
+            "RequiredVersion": "${{ steps.parse.outputs.required-version }}",
             "Tags": ["pending"],
             "MinGameVersion": "0.3.0"
           }

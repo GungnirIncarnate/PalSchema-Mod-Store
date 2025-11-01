@@ -151,6 +151,7 @@ def generate_manifest():
             "uuid": mod_info["UUID"],
             "name": mod_info["ModName"],
             "version": str(mod_info["Version"]),
+            "required_version": mod_info.get("RequiredVersion", "both").lower(),
             "description": mod_info["Description"],
             "author": mod_info.get("Author", "Unknown"),
             "folder_name": mod_dir.name,

@@ -62,12 +62,24 @@ This approach keeps local development fast while maintaining full functionality 
   "Version": "1.0.0",
   "Description": "A detailed description of what your mod does",
   "Author": "Your Name",
+  "RequiredVersion": "steam",
   "Tags": ["gameplay", "enhancement", "ui"],
   "MinGameVersion": "0.3.0",
   "Homepage": "https://your-mod-homepage.com",
   "SourceCode": "https://github.com/yourname/yourmod"
 }
 ```
+
+**Required Fields:**
+- `ModName`: Display name of your mod
+- `Version`: Semantic version (e.g., "1.0.0")
+- `Description`: What your mod does
+- `Author`: Your name/username
+- `RequiredVersion`: Which Palworld version(s) your mod supports
+  - `"steam"` - Steam version only
+  - `"gamepass"` - Game Pass version only
+  - `"both"` - Compatible with both versions
+- `MinGameVersion`: Minimum Palworld version required
 
 ## 🔄 Automated Workflows
 

@@ -4,6 +4,7 @@
   "Version": "0.1.3",
   "Description": "Currently adds 9 new variations for the Revolver and Laser Gatling (With plans for other weapons), each one deals a type of elemental damage fire/water/dark/etc with the chance of inflicting different status effects such as burn/soak/stun/sleep/etc.",
   "Author": "GungnirIncarnate",
+  "RequiredVersion": "steam",
   "Tags": ["pending"],
   "MinGameVersion": "0.3.0"
 }
