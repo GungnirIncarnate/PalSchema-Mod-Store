@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-11-01T02:07:25.834904Z",
+  "last_updated": "2025-11-01T02:16:41.248927Z",
   "repository": {
     "url": "https://github.com/GungnirIncarnate/PalSchema-Mod-Store",
     "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main"
@@ -22,7 +22,7 @@
         "quality-of-life",
         "example"
       ],
-      "last_updated": "2025-11-01T02:07:17.036011Z",
+      "last_updated": "2025-11-01T02:16:40.243942Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ExampleMod/icon.png"
     },
     {
@@ -40,7 +40,7 @@
       "tags": [
         "pending"
       ],
-      "last_updated": "2025-11-01T02:03:10Z",
+      "last_updated": "2025-11-01T02:16:40.242942Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ElementalWeapons/icon.png"
     }
   ]
