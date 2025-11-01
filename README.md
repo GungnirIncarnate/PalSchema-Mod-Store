@@ -76,6 +76,7 @@ Alternatively, you can submit directly via pull request:
 
 ```json
 {
+  "UUID": "auto-generated-on-approval",
   "ModName": "Your Mod Name",
   "Version": "1.0.0",
   "Description": "A detailed description of what your mod does",
@@ -83,8 +84,7 @@ Alternatively, you can submit directly via pull request:
   "RequiredVersion": "steam",
   "Tags": ["gameplay", "enhancement", "ui"],
   "MinGameVersion": "0.3.0",
-  "Homepage": "https://your-mod-homepage.com",
-  "SourceCode": "https://github.com/yourname/yourmod"
+  "Homepage": "https://your-mod-homepage.com"
 }
 ```
 
