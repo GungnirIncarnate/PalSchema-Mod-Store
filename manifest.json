@@ -1,30 +1,11 @@
 {
   "version": "1.0",
-  "last_updated": "2025-11-01T04:30:15.402883Z",
+  "last_updated": "2025-11-01T04:30:59.971271Z",
   "repository": {
     "url": "https://github.com/GungnirIncarnate/PalSchema-Mod-Store",
     "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main"
   },
   "mods": [
-    {
-      "id": "elementalweapons",
-      "uuid": "2a3ec0e7-2029-435d-ba5c-238524ab4e24",
-      "name": "Elemental Weapons",
-      "version": "0.1.3",
-      "required_version": "steam",
-      "description": "Currently adds 9 new variations for the Revolver and Laser Gatling (With plans for other weapons), each one deals a type of elemental damage fire/water/dark/etc with the chance of inflicting different status effects such as burn/soak/stun/sleep/etc.",
-      "author": "GungnirIncarnate",
-      "folder_name": "ElementalWeapons",
-      "download_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ElementalWeapons/ElementalWeapons-v0.1.3.zip",
-      "file_size": 130072,
-      "checksum": "sha256:f22bb856e1c5b149410f4d6695afec0e486287bed761d5f7a7651ab08e9bb3a0",
-      "min_game_version": "0.3.0",
-      "tags": [
-        "pending"
-      ],
-      "last_updated": "2025-11-01T15:22:39.609316Z",
-      "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ElementalWeapons/icon.png"
-    },
     {
       "id": "examplemod",
       "uuid": "388a6fee-4b28-4cb0-915d-6b586e392348",
@@ -42,8 +23,27 @@
         "quality-of-life",
         "example"
       ],
-      "last_updated": "2025-10-28T00:40:46.580278Z",
+      "last_updated": "2025-11-01T04:30:59.187082Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ExampleMod/icon.png"
+    },
+    {
+      "id": "elementalweapons",
+      "uuid": "2a3ec0e7-2029-435d-ba5c-238524ab4e24",
+      "name": "Elemental Weapons",
+      "version": "0.1.3",
+      "required_version": "steam",
+      "description": "Currently adds 9 new variations for the Revolver and Laser Gatling (With plans for other weapons), each one deals a type of elemental damage fire/water/dark/etc with the chance of inflicting different status effects such as burn/soak/stun/sleep/etc.",
+      "author": "GungnirIncarnate",
+      "folder_name": "ElementalWeapons",
+      "download_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ElementalWeapons/ElementalWeapons-v0.1.3.zip",
+      "file_size": 130072,
+      "checksum": "sha256:f22bb856e1c5b149410f4d6695afec0e486287bed761d5f7a7651ab08e9bb3a0",
+      "min_game_version": "0.3.0",
+      "tags": [
+        "pending"
+      ],
+      "last_updated": "2025-11-01T04:30:59.186082Z",
+      "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ElementalWeapons/icon.png"
     }
   ]
 }
