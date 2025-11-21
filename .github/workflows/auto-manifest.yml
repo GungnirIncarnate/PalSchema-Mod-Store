@@ -3,7 +3,7 @@ name: Auto-Update Manifest
 on:
   # Run every 15 minutes
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '*/120 * * * *'
   
   # Also run on pushes to main branch
   push:
