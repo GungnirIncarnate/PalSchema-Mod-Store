@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-01-09T15:22:42.330307Z",
+  "last_updated": "2026-01-09T16:26:28.455328Z",
   "repository": {
     "url": "https://github.com/GungnirIncarnate/PalSchema-Mod-Store",
     "raw_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main"
@@ -23,7 +23,7 @@
         "quality-of-life",
         "example"
       ],
-      "last_updated": "2026-01-09T15:22:41.380751Z",
+      "last_updated": "2026-01-09T16:26:27.667940Z",
       "icon_url": "https://raw.githubusercontent.com/GungnirIncarnate/PalSchema-Mod-Store/main/mods/ExampleMod/icon.png"
     },
     {
@@ -42,7 +42,7 @@
       "tags": [
         "pending"
       ],
-      "last_updated": "2026-01-09T15:22:41.380751Z"
+      "last_updated": "2026-01-09T16:26:27.667940Z"
     }
   ]
 }
